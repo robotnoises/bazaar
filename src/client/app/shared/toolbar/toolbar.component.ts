@@ -5,7 +5,7 @@ import { Component} from '@angular/core';
  */
 @Component({
   moduleId: module.id,
-  selector: 'sd-toolbar',
+  selector: 'bazaar-toolbar',
   templateUrl: 'toolbar.component.html',
   styleUrls: ['toolbar.component.css']
 })
