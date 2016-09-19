@@ -7,7 +7,7 @@ import { Config} from './shared/index';
  */
 @Component({
   moduleId: module.id,
-  selector: 'sd-app',
+  selector: 'bazaar',
   templateUrl: 'app.component.html',
 })
 
