@@ -2,7 +2,7 @@ import { join } from 'path';
 import * as slash from 'slash';
 import { argv } from 'yargs';
 
-import { Environments, InjectableDependency } from './seed.config.interfaces';
+import { Environments, InjectableDependency } from './bazaar.config.interfaces';
 
 /**
  * The enumeration of available environments.
@@ -25,7 +25,7 @@ export const ENVIRONMENTS: Environments = {
  * - BrowserSync configuration
  * - Utilities
  */
-export class SeedConfig {
+export class BazaarConfig {
 
   /**
    * The port where the application will run.

@@ -1,18 +1,18 @@
 import { join } from 'path';
 
-import { SeedConfig } from './seed.config';
+import { BazaarConfig } from './bazaar.config';
 
 /**
  * This class extends the basic seed configuration, allowing for project specific overrides. A few examples can be found
  * below.
  */
-export class ProjectConfig extends SeedConfig {
+export class ProjectConfig extends BazaarConfig {
 
   PROJECT_TASKS_DIR = join(process.cwd(), this.TOOLS_DIR, 'tasks', 'project');
 
   constructor() {
     super();
-    // this.APP_TITLE = 'Put name of your app here';
+    this.APP_TITLE = 'Bazaar';
 
     /* Enable typeless compiler runs (faster) between typed compiler runs. */
     // this.TYPED_COMPILE_INTERVAL = 5;
