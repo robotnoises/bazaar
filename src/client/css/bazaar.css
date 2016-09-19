@@ -1,4 +1,5 @@
 /* Reset */
+
 html,
 body,
 div {
@@ -8,56 +9,116 @@ div {
 }
 
 /* Box-sizing border-box */
+
 * {
   box-sizing: border-box;
 }
 
-/* Set up a default font and some padding to provide breathing room */
+/* Base styles */
+
+html, 
 body {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #f3f3f3;
+}
+
+/* Fonts */
+
+body {
+  font-family: 'Cabin', sans-serif;
   font-size: 16px;
+  font-weight: 400;
+  color: #555;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-p {
-  font-weight: 400;
-  letter-spacing: 0.01em;
-  line-height: 20px;
-  margin-bottom: 1em;
-  margin-top: 1em;
-}
-
-ul {
-  margin: 10px 0 0;
-  padding: 0 0 0 20px;
-}
-
+h1, 
+h2, 
+h3, 
+h4, 
+h5, 
+h6, 
+p,
+a, 
 li {
-  font-weight: 400;
-  margin-top: 4px;
+  font-family: 'Cabin', sans-serif;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-input {
-  border: 1px solid #106cc8;
-  font-size: 14px;
-  height: 40px;
-  outline: none;
-  padding: 8px;
+/* Container */
+
+.jumbotron {
+  height: 300px;
 }
+
+.jumbotron h1 {
+  /*font-size: 2.5em;*/
+}
+
+.jumbotron p {
+  font-size: 1em;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Buttons */
 
 button {
-  background-color: #106cc8;
-  border-style: none;
-  color: rgba(255, 255, 255, 0.87);
-  cursor: pointer;
-  display: inline-block;
-  font-size: 14px;
-  height: 40px;
+  background-color: transparent;
+  border-radius: 0;
+  border-width: 3px;
+  border-style: solid;
+  border-color: #DD2476;
+  color: #DD2476;
+  line-height: normal;
   padding: 8px 18px;
-  text-decoration: none;
 }
 
-button:hover {
-  background-color: #28739e;
+button:hover, 
+button:active,
+button:focus {
+  background-color: #fff;
+  color: #555;
+  border-color: #555;
+}
+
+/* Gradients */
+
+.gradient {
+  background: #FF512F; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #FF512F , #DD2476); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #FF512F , #DD2476); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */        
+}
+
+/* Shadows */
+
+.shadow-lg {
+  box-shadow: 0 6px 8px rgba(0,0,0,0.2)
+;}
+
+/* Rulers */
+
+.ruler {
+  display: block;
+  height: 3px;
+  margin: 0 0 5px;
+}
+
+/* Position */
+
+.centered {
+  display: block;
+  margin: 0 auto;
+}
+
+h1.centered,
+h2.centered,
+h3.centered,
+h4.centered,
+h5.centered,
+h6.centered,
+p.centered {
+  text-align: center;
 }

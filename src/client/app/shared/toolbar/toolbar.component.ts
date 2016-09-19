@@ -1,8 +1,10 @@
 import { Component} from '@angular/core';
+import { Router } from '@angular/router';
 
 /**
  * This class represents the toolbar component.
  */
+
 @Component({
   moduleId: module.id,
   selector: 'bazaar-toolbar',
@@ -10,5 +12,19 @@ import { Component} from '@angular/core';
   styleUrls: ['toolbar.component.css']
 })
 
-export class ToolbarComponent {}
+export class ToolbarComponent {
+
+  isHome: boolean;
+  routerSub: any;
+
+  constructor(private route: Router) { 
+    this.routerSub = route.events.subscribe((event) => {
+      this.isHome = event.url === '/';
+    });
+  }
+
+  ngOnDestroy() {
+    this.routerSub.unsubscribe();
+  }
+}
 
