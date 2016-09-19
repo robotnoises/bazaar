@@ -232,7 +232,7 @@ export class BazaarConfig {
    * The name of the bundle file to includes all CSS files.
    * @type {string}
    */
-  CSS_PROD_BUNDLE = 'main.css';
+  CSS_PROD_BUNDLE = 'bazaar.css';
 
   /**
    * The name of the bundle file to include all JavaScript shims.
@@ -278,7 +278,7 @@ export class BazaarConfig {
     { src: 'zone.js/dist/zone.js', inject: 'libs' },
     { src: 'core-js/client/shim.min.js', inject: 'shims' },
     { src: 'systemjs/dist/system.src.js', inject: 'shims', env: ENVIRONMENTS.DEVELOPMENT },
-    { src: 'rxjs/bundles/Rx.min.js', inject: 'libs', env: ENVIRONMENTS.DEVELOPMENT },
+    { src: 'rxjs/bundles/Rx.min.js', inject: 'libs', env: ENVIRONMENTS.DEVELOPMENT }
   ];
 
   /**
@@ -286,7 +286,7 @@ export class BazaarConfig {
    * @type {InjectableDependency[]}
    */
   APP_ASSETS: InjectableDependency[] = [
-    { src: `${this.CSS_SRC}/main.${this.getInjectableStyleExtension()}`, inject: true, vendor: false },
+    { src: `${this.CSS_SRC}/bazaar.${this.getInjectableStyleExtension()}`, inject: true, vendor: false },
   ];
 
   /**
