@@ -25,6 +25,7 @@
     "serve.dev": "gulp serve.dev --color --config-env dev",
     "serve.e2e": "gulp serve.e2e --color",
     "serve.prod": "gulp serve.prod --color --config-env prod",
+    "serve.db": "node app",
     "start": "gulp serve.dev --color",
     "tasks.list": "gulp --tasks-simple --color",
     "test": "gulp test --color",
@@ -141,8 +142,12 @@
     "concise.css": "^3.4.0",
     "core-js": "^2.4.0",
     "es-module-loader": "^1.0.0",
+    "express": "^4.14.0",
+    "pg": "^6.1.0",
+    "pg-hstore": "^2.3.2",
     "reflect-metadata": "^0.1.8",
     "rxjs": "5.0.0-beta.12",
+    "sequelize": "^3.24.3",
     "systemjs": "0.19.27",
     "zone.js": "0.6.21"
   }
