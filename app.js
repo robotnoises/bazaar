@@ -1,11 +1,13 @@
 var Sequelize = require('sequelize');
 var express = require('express');
+var models = require('./api/models');
+
 // var config = require('./config');
 
 var app = express();
 
 app.listen(process.env.PORT || 8888, () => {
-  console.log('Server started.');
+  console.log('Server started');
 });
 
 // ORM
@@ -23,22 +25,10 @@ var sequelize = new Sequelize(
     }
 });
 
-var User = sequelize.define('user', {
-  firstName: {
-    type: Sequelize.STRING,
-    field: 'first_name' // Will result in an attribute that is firstName when user facing but first_name in the database
-  },
-  lastName: {
-    type: Sequelize.STRING,
-    field: 'last_name'
-  }
-});
-
-User.sync({force: true}).then(function () {
-  // Table created
-  return User.create({
-    firstName: 'John',
-    lastName: 'Hancock'
+models.init(sequelize)
+  .then(() => {
+    console.log('db synced')
+  })
+  .catch((error) => {
+    console.error(error);
   });
-});
-
