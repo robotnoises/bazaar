@@ -5,12 +5,12 @@ var models = require('./api/models');
 // var config = require('./config');
 
 var app = express();
-
-app.listen(process.env.PORT || 8888, () => {
-  console.log('Server started');
+var port = process.env.PORT || 8888;
+app.listen(port, () => {
+  console.log('Server started. Listening on port:', port);
 });
 
-// ORM
+// Sequelize
 
 var sequelize = new Sequelize(
   process.env.BAZAAR_DB_NAME, 
@@ -30,5 +30,5 @@ models.init(sequelize)
     console.log('db synced')
   })
   .catch((error) => {
-    console.error(error);
+    console.error('db sync error:', error);
   });
