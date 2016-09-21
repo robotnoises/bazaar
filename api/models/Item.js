@@ -12,6 +12,14 @@ module.exports = (sequelize) => {
     description: {
       type: Sequelize.TEXT,
       field: 'description'
+    },
+    createdAt: {
+      type: Sequelize.DATE,
+      field: 'created_at'
+    },
+    updatedAt: {
+      type: Sequelize.DATE,
+      field: 'updated_at'
     }
   });
 
