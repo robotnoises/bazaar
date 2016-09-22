@@ -5,18 +5,15 @@ var Item = require('./Item');
 var Role = require('./Role');
 
 function init(sequelize) {
-  return new Promise((resolve, reject) => {
-    
-    // Define and sync data models
-    
-    User(sequelize)
-      .then(() => Item(sequelize))
-      .then(() => Role(sequelize))
-      .then(resolve)
-      .catch((error) => {
-        reject(error);
-      });
-  });  
+
+  // Define and sync data models
+
+  return User(sequelize)
+    .then(() => Item(sequelize))
+    .then(() => Role(sequelize))
+    .catch((error) => {
+      console.error(error);
+    });
 }
 
 module.exports = {

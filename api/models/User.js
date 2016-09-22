@@ -19,7 +19,12 @@ module.exports = (sequelize) => {
       }
     },
     password: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      // hash the password using bcrypt
+      set: function (val) {
+        let hashed = bcrypt.hashSync(val, saltRounds);
+        this.setDataValue('password', hashed);
+      }
     },
     userName: {
       type: Sequelize.STRING,
@@ -45,18 +50,33 @@ module.exports = (sequelize) => {
       type: Sequelize.DATE,
       field: 'updated_at'
     }
-  }, {
-      instanceMethods: {
-        passwordHash: function (password) {
-          return bcrypt.hashSync(password, saltRounds);
-        },
-        passwordValidate: function (password) {
-          return bcrypt.compareSync(password, this.password);
-        },
-      }
-    });
+  });
+  
+  // , {
+  //     instanceMethods: {
+  //       passwordHash: function (password, callback) {
+  //         return bcrypt.hash(password, saltRounds, callback);
+  //       },
+  //       passwordValidate: function (password, callback) {
+  //         return bcrypt.compare(password, this.password, callback);
+  //       },
+  //     }
+  //   });
 
-  return User.sync({force: true});
+  return User.sync({force: true})
+    .then(() => { 
+      User.create({
+        email: 'davenich@gmail.com',
+        password: 'foobarbaz',
+        userName: 'david',
+        firstName: 'David',
+        lastName: 'Nichols',
+        shippingAddress: '123 Fart Road, Tallahassee, FL, 32317'
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+    })
 };
 
 
