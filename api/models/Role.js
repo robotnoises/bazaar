@@ -5,7 +5,7 @@ var Sequelize = require('sequelize');
 module.exports = (sequelize) => {
   
   var Role = sequelize.define('role', {
-    type: { 
+    value: { 
       type: Sequelize.STRING
     },
     createdAt: {
@@ -19,9 +19,9 @@ module.exports = (sequelize) => {
   });
 
   return Role.sync({force: true})
-    .then(() => Role.create({ type: 'user' }))
-    .then(() => Role.create({ type: 'admin' }))
-    .then(() => Role.create({ type: 'superadmin' }))
+    .then(() => Role.create({ value: 'user' }))
+    .then(() => Role.create({ value: 'admin' }))
+    .then(() => Role.create({ value: 'superadmin' }))
     .catch((error) => {
       console.error(error);
     });

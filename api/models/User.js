@@ -6,7 +6,7 @@ var bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 /**
- * User - A Bazaar User's private profile
+ * User - A Bazaar User's profile
  */
 
 module.exports = (sequelize) => {
@@ -51,7 +51,7 @@ module.exports = (sequelize) => {
       field: 'updated_at'
     }
   });
-  
+
   // , {
   //     instanceMethods: {
   //       passwordHash: function (password, callback) {
@@ -76,7 +76,7 @@ module.exports = (sequelize) => {
     })
     .catch((error) => {
       console.error(error);
-    })
+    });
 };
 
 
