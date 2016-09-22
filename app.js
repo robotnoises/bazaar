@@ -5,8 +5,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const config = require('./config');
-const apiRoutes = require('./api/routes');
-const apiModels = require('./api/models');
+const api = require('./api');
+const models = require('./api/models');
 
 /**
  * Start server
@@ -48,7 +48,7 @@ var sequelize = new Sequelize(
  * Define db Models
  */
 
-apiModels.init(sequelize)
+models.init(sequelize)
   .then(() => {
     console.log('db synced');
   })
@@ -63,4 +63,4 @@ apiModels.init(sequelize)
 const router = express.Router({ mergeParams: true });
 
 app.use('/api/v1', router);
-apiRoutes.init(router);
+api.init(router);
