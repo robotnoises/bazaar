@@ -5,7 +5,7 @@
  */
 
 function init(router) {
-  require('./controllers/user')(router);
+  require('./controllers/userController')(router);
   console.log('API is ready to go');
 }
 

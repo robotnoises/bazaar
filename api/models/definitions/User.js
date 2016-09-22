@@ -15,6 +15,7 @@ function define(sequelize) {
   let User = sequelize.define('user', {
     email: {
       type: DataType.STRING,
+      unique: true,
       validate: {
         isEmail: true
       }

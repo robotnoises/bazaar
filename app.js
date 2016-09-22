@@ -2,6 +2,8 @@
 
 const Sequelize = require('sequelize');
 const express = require('express');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const config = require('./config');
 const apiRoutes = require('./api/routes');
 const apiModels = require('./api/models');
@@ -16,6 +18,14 @@ const port = process.env.PORT || 8888;
 app.listen(port, () => {
   console.log('Server started. Listening on port:', port);
 });
+
+/**
+ * Express Middleware
+ */
+
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 /**
  * Connect to db
