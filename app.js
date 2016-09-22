@@ -1,16 +1,25 @@
-var Sequelize = require('sequelize');
-var express = require('express');
-var models = require('./api/models');
+'use strict';
 
-// var config = require('./config');
+const Sequelize = require('sequelize');
+const express = require('express');
+const config = require('./config');
+const apiRoutes = require('./api/routes');
+const apiModels = require('./api/models');
 
-var app = express();
-var port = process.env.PORT || 8888;
+/**
+ * Start server
+ */
+
+const app = express();
+const port = process.env.PORT || 8888;
+
 app.listen(port, () => {
   console.log('Server started. Listening on port:', port);
 });
 
-// Sequelize
+/**
+ * Connect to db
+ */
 
 var sequelize = new Sequelize(
   process.env.BAZAAR_DB_NAME, 
@@ -25,10 +34,23 @@ var sequelize = new Sequelize(
     }
 });
 
-models.init(sequelize)
+/**
+ * Define db Models
+ */
+
+apiModels.init(sequelize)
   .then(() => {
-    console.log('db synced')
+    console.log('db synced');
   })
   .catch((error) => {
     console.error('db sync error:', error);
   });
+
+/**
+ * Init API routes 
+ */ 
+
+const router = express.Router({ mergeParams: true });
+
+app.use('/api/v1', router);
+apiRoutes.init(router);
