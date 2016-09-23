@@ -1,8 +1,10 @@
 'use strict';
 
 let models = require('./../models');
-let userDAO = models.getModel('User');
 let response = require('./httpResponseService');
+
+let userDAO = models.getModel('User');
+let roleDAO = models.getModel('Role');
 
 /**
  * Private
@@ -64,14 +66,10 @@ function create(req, res) {
       return created.addRole(1);
     })
     .then(() => {
-      return userDAO.findById(createdUser.userId);
+      return userDAO.find({where: {userId: createdUser.userId}, include: { model: roleDAO }});
     })
-    .then((user) => {
-      return user.getRoles();
-    })
-    .then((roles) => {
-      createdUser.roles = roles.map((role) => role.dataValues);
-      res.status(200).json(userResponse.createSuccess(createdUser));
+    .then((foo) => {
+      res.status(200).json(userResponse.createSuccess(foo));
     })
     .catch((error) => {
       res.status(409).json(userResponse.createError(error, 409));
@@ -79,19 +77,13 @@ function create(req, res) {
 }
 
 function get(req, res) {
-  let user;
 
-  userDAO.findById(req.params.userId)
-    .then((u) => {
-      user = u;
-      return u.getRoles();
-    })
-    .then((roles) => {
-      user.roles = roles.map((role) => role.dataValues);
+  userDAO.find({where: {userId: req.params.userId}, include: [{ model: roleDAO }]})
+    .then((user) => {
       res.status(200).json(userResponse.readSuccess(user));
     })
     .catch((error) => {
-      res.status(400).json(userResponse.readError(error.errors, 400));
+      res.status(400).json(userResponse.readError(error, 400));
     });
 }
 
