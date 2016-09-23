@@ -59,9 +59,9 @@ function create(req, res) {
   let createdUser;
 
   userDAO.create(requestBody)
-    .then((userDAO) => {
-      createdUser = userDAO.dataValues;
-      return userDAO.addRole(1);
+    .then((created) => {
+      createdUser = created.dataValues;
+      return created.addRole(1);
     })
     .then(() => {
       return userDAO.findById(createdUser.userId);
@@ -70,8 +70,7 @@ function create(req, res) {
       return user.getRoles();
     })
     .then((roles) => {
-      let mappedRoles = createdUser.roles = roles.map((role) => role.dataValues);
-      createdUser.roles = mappedRoles;
+      createdUser.roles = roles.map((role) => role.dataValues);;
       res.status(200).json(userResponse.createSuccess(createdUser));
     })
     .catch((error) => {
