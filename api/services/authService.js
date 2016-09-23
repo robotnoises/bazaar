@@ -8,7 +8,9 @@ let userService = require('./userService');
 let userDAO = models.getModel('User');
 
 function login(req, res) {
+  
   // Find a user via the supplied email
+
   userDAO
     .findOne({
       where: {
@@ -31,7 +33,7 @@ function login(req, res) {
     })
     .catch((error) => {
       console.error(error);
-      res.status(500).end();
+      res.status(401).end();
     });
 }
 
