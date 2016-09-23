@@ -70,7 +70,7 @@ function create(req, res) {
       return user.getRoles();
     })
     .then((roles) => {
-      createdUser.roles = roles.map((role) => role.dataValues);;
+      createdUser.roles = roles.map((role) => role.dataValues);
       res.status(200).json(userResponse.createSuccess(createdUser));
     })
     .catch((error) => {
@@ -79,9 +79,15 @@ function create(req, res) {
 }
 
 function get(req, res) {
+  let user;
 
   userDAO.findById(req.params.userId)
-    .then((user) => {
+    .then((u) => {
+      user = u;
+      return u.getRoles();
+    })
+    .then((roles) => {
+      user.roles = roles.map((role) => role.dataValues);
       res.status(200).json(userResponse.readSuccess(user));
     })
     .catch((error) => {
