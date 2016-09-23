@@ -9,9 +9,10 @@ var DataType = require('sequelize');
 // Define ItemCondition Model
 function define(sequelize) {
   
-  let ItemCondition = sequelize.define('item_condition', {
+  let ItemCondition = sequelize.define('condition', {
     value: { 
-      type: DataType.STRING
+      type: DataType.STRING,
+      allowNull: false
     },
     createdAt: {
       type: DataType.DATE,

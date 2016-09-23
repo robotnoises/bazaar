@@ -17,7 +17,7 @@ function FormattedUser(data) {
   this.firstName = data.firstName || '';
   this.lastName = data.lastName || '';
   this.shippingAddress = data.email || '';
-  this.roles = data.roles || [];
+  // this.roles = data.roles || [];
 }
 
 var userResponse = {
