@@ -9,7 +9,7 @@ const models = require('./../models');
 
 module.exports = (router) => {
 
-  let resp = require('./../utils/response');
+  let resp = require('./../services/httpResponseService');
   let user = models.getModel('User');
 
   router.post('/auth/login', (req, res) => {
