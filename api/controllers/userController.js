@@ -9,11 +9,10 @@ const models = require('./../models');
 module.exports = (router) => {
 
   let resp = require('./../utils/response');
-  
+  let user = models.getModel('User');
+
   // Create a User
   router.post('/user', (req, res) => {
-    
-    let user = models.getModel('User');
     
     user.create(req.body)
       .then((created) => {
@@ -29,7 +28,16 @@ module.exports = (router) => {
 
   // Get a specific User
   router.get('/user/:userId', (req, res) => {
-    res.status(200).send('OK');
+    user.findById(req.params.userId)
+      .then((created) => {
+        let response = resp.userResponse.readSuccess(created);
+        res.status(response.statusCode).json(response);
+      })
+      .catch((error) => {
+        // Todo check Sequelize response
+        let response = resp.userResponse.readError(error.errors, 400);
+        res.status(response.statusCode).json(response);
+      });
   });
 
   // Update a specific User

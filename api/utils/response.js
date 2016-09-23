@@ -11,6 +11,7 @@ function Response(statusCode, body, message) {
  */
 
 function FormattedUser(data) {
+  this.userId = data.userId || null;
   this.email = data.email || '';
   this.userName = data.userName || '';
   this.firstName = data.firstName || '';

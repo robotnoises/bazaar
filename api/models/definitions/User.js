@@ -13,6 +13,12 @@ const saltRounds = 10;
 function define(sequelize) {
   
   let User = sequelize.define('user', {
+    userId: {
+      type: DataType.UUID,
+      field: 'user_id',
+      defaultValue: DataType.UUIDV4,
+      primaryKey: true
+    },
     email: {
       type: DataType.STRING,
       unique: true,
