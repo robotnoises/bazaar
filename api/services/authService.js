@@ -18,7 +18,9 @@ function login(req, res) {
     .then((user) => {
       let passwordsMatch = bcrypt.compareSync(req.body.password, user.dataValues.password);
       if (passwordsMatch) {
-        res.status(200).send(userService.response.readSuccess(user.dataValues, 'Authentication success.'));
+        req.session.save(() => {
+          res.status(200).send(userService.response.readSuccess(user.dataValues, 'Authentication success.'));
+        });
       } else {
         res.status(401).send(userService.response.readError(
           { errorCode: 'UNAUTHORIZED' }, 

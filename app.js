@@ -4,9 +4,12 @@ const Sequelize = require('sequelize');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const expressSession = require('express-session');
 const config = require('./config');
 const api = require('./api');
 const models = require('./api/models');
+
+let RedisStore = require('connect-redis')(expressSession);
 
 const app = express();
 const port = process.env.PORT || 8888;
@@ -71,3 +74,16 @@ app.listen(port, init.bind(this));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(expressSession({
+  store: new RedisStore({
+    host: 'localhost',
+    port: 6379,
+    db: 1
+  }),
+  secret: 'F25E83CC4D994153FF9F453A6F9B5'
+}));
+
+app.use((req, res, next) => {
+  let foo = req;
+  next();
+})
