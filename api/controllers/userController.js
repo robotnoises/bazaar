@@ -7,6 +7,8 @@ const models = require('./../models');
  */
 
 module.exports = (router) => {
+
+  let resp = require('./../utils/response');
   
   // Create a User
   router.post('/user', (req, res) => {
@@ -15,10 +17,13 @@ module.exports = (router) => {
     
     user.create(req.body)
       .then((created) => {
-        res.status(200).json('OK'); // Todo return User ViewModel object
+        let response = resp.userResponse.createSuccess(created);
+        res.status(response.statusCode).json(response);
       })
       .catch((error) => {
-        res.status(500).json(error);
+        // Todo check Sequelize response
+        let response = resp.userResponse.createError(error.errors, 409);
+        res.status(response.statusCode).json(response);
       });
   });
 
