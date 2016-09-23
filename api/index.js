@@ -6,6 +6,8 @@
 
 function init(router) {
   require('./controllers/userController')(router);
+  require('./controllers/authController')(router);
+
   console.log('API is ready to go');
 }
 

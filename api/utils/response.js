@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * Response format for all requests
+ */
+
 function Response(statusCode, body, message) {
   this.statusCode = statusCode;
   this.body = body;
