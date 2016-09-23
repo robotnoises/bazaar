@@ -15,7 +15,8 @@ function FormattedUser(data) {
   this.userName = data.userName || '';
   this.firstName = data.firstName || '';
   this.lastName = data.lastName || '';
-  this.shippingAddress = data.email || '';
+  this.shippingAddress = data.shippingAddress || '';
+  this.roles = data.roles || [];
 }
 
 // Various response handlers (still a WIP)
@@ -55,13 +56,26 @@ var userResponse = {
 function create(req, res) {
 
   let requestBody = req.body;
+  let createdUser;
 
   userDAO.create(requestBody)
-    .then((created) => {
-      res.status(200).json(userResponse.createSuccess(created));
+    .then((userDAO) => {
+      createdUser = userDAO.dataValues;
+      return userDAO.addRole(1);
+    })
+    .then(() => {
+      return userDAO.findById(createdUser.userId);
+    })
+    .then((user) => {
+      return user.getRoles();
+    })
+    .then((roles) => {
+      let mappedRoles = createdUser.roles = roles.map((role) => role.dataValues);
+      createdUser.roles = mappedRoles;
+      res.status(200).json(userResponse.createSuccess(createdUser));
     })
     .catch((error) => {
-      res.status(409).json(userResponse.createError(error.errors, 409));
+      res.status(409).json(userResponse.createError(error, 409));
     });
 }
 

@@ -40,21 +40,24 @@ function init(sequelize) {
    * Define various Model associations using the above definitions
    */
 
-  // A User can have many roles
+  // A User can have many Roles
   user.belongsToMany(role, {
     foreignKey: 'fk_user',
+    otherKey: 'fk_role',
     through: 'user_roles'
   });
 
   // A condition (new, likenew, fair.. etc) can be associated with many Items
   condition.belongsToMany(item, {
     foreignKey: 'fk_condition',
+    otherKey: 'fk_item',
     through: 'item_conditions'
   });
 
   // A category can be associated with many Items
   category.belongsToMany(item, {
     foreignKey: 'fk_category',
+    otherKey: 'fk_item',
     through: 'item_categories'
   });
 

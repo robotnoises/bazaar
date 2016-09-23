@@ -18,7 +18,8 @@ function define(sequelize) {
 
   let Role = sequelize.define('role', {
     value: { 
-      type: DataType.STRING
+      type: DataType.STRING,
+      allowNull: false
     },
     createdAt: {
       type: DataType.DATE,

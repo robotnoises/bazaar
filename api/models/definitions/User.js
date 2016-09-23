@@ -58,6 +58,14 @@ function define(sequelize) {
       type: DataType.DATE,
       field: 'updated_at'
     }
+  }, {
+    fields: [
+      'email', 
+      'password', 
+      'firstName', 
+      'lastName', 
+      'shippingAddress'
+    ]
   });
 
   return User;
