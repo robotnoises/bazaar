@@ -20,29 +20,29 @@ function FormattedUser(data) {
 
 // Various response handlers (still a WIP)
 var userResponse = {
-  createSuccess: (data, status) => {
-    return response.success(200, new FormattedUser(data), 'User created successfully.');
+  createSuccess: (data, message) => {
+    return response.success(200, new FormattedUser(data), message || 'User created successfully.');
   },
-  createError: (data, status) => {
-    return response.error(status || 500, data, 'User create error.');
+  createError: (data, message, status) => {
+    return response.error(status || 500, data, message || 'User create error.');
   },
-  readSuccess: (data, status) => {
-    return response.success(200, new FormattedUser(data), 'User found.');
+  readSuccess: (data, message) => {
+    return response.success(200, new FormattedUser(data), message || 'User found.');
   },
-  readError: (data, status) => {
-    return response.error(status || 500, data, 'User not found.');
+  readError: (data, message, status) => {
+    return response.error(status || 500, data, message || 'User not found.');
   },
-  updateSuccess: (data, status) => {
-    return response.success(200, new FormattedUser(data), 'User updated successfully.');
+  updateSuccess: (data, message) => {
+    return response.success(200, new FormattedUser(data), message || 'User updated successfully.');
   },
-  updateError: (data, status) => {
-    return response.error(status || 500, data, 'User update error.');
+  updateError: (data, message, status) => {
+    return response.error(status || 500, data, message || 'User update error.');
   },
-  deleteSuccess: (data, status) => {
-    return response.success(200, new FormattedUser(data), 'User deleted successfully.');
+  deleteSuccess: (data, message) => {
+    return response.success(200, new FormattedUser(data), message || 'User deleted successfully.');
   },
-  deleteError: (data, status) => {
-    return response.error(status || 500, data, 'User delete error.');
+  deleteError: (data, message, status) => {
+    return response.error(status || 500, data, message || 'User delete error.');
   }
 };
 
@@ -78,5 +78,7 @@ function get(req, res) {
 
 module.exports = {
   create: create,
-  get: get
+  get: get,
+  response: userResponse,
+  Formatted: FormattedUser
 };

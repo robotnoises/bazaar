@@ -7,35 +7,15 @@ const models = require('./../models');
  * Auth Controller - controllers for authenticating Users
  */
 
+let authService = require('./../services/authService');
+
 module.exports = (router) => {
 
-  let resp = require('./../services/httpResponseService');
-  let user = models.getModel('User');
+  // Log a User in
+  router.post('/auth/login', authService.login);
 
-  router.post('/auth/login', (req, res) => {
-    // Find a user via the supplied email
-    user
-      .findOne({
-        where: {
-          email: req.body.email
-        }
-      })
-      .then((user) => {
-        let passwordsMatch = bcrypt.compareSync(req.body.password, user.dataValues.password);
-
-        if (passwordsMatch) {
-          res.status(200).send('OK');
-        } else {
-          res.status(401).send('UNAUTHORIZED');
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        res.status(500).end();
-      });
-  });
-
+  // Log a User out
   router.post('/auth/logout', (req, res) => {
-
+    // todo
   });
 };
