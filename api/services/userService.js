@@ -58,21 +58,20 @@ var userResponse = {
 function create(req, res) {
 
   let requestBody = req.body;
-  let createdUser;
 
   userDAO.create(requestBody)
     .then((created) => {
-      createdUser = created.dataValues;
       return created.addRole(1);
     })
-    .then(() => {
-      return userDAO.find({where: {userId: createdUser.userId}, include: { model: roleDAO }});
+    .then((addedRole) => {
+      let userId = addedRole[0][0].dataValues.fk_user;
+      return userDAO.find({where: {userId: userId}, include: { model: roleDAO }});
     })
-    .then((foo) => {
-      res.status(200).json(userResponse.createSuccess(foo));
+    .then((user) => {
+      res.status(200).json(userResponse.createSuccess(user));
     })
     .catch((error) => {
-      res.status(409).json(userResponse.createError(error, 409));
+      res.status(409).json(userResponse.createError(error.errors, '', 409));
     });
 }
 
