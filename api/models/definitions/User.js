@@ -46,10 +46,6 @@ function define(sequelize) {
       type: DataType.STRING,
       field: 'last_name'
     },
-    shippingAddress: {
-      type: DataType.STRING,
-      field: 'shipping_address'
-    },
     createdAt: {
       type: DataType.DATE,
       field: 'created_at'
@@ -63,8 +59,7 @@ function define(sequelize) {
       'email', 
       'password', 
       'firstName', 
-      'lastName', 
-      'shippingAddress'
+      'lastName'
     ]
   });
 

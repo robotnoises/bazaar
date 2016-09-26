@@ -11,6 +11,7 @@ var Role = require('./definitions/Role');
 var Item = require('./definitions/Item');
 var Category = require('./definitions/Category');
 var Condition = require('./definitions/Condition');
+var ShippingAddress = require('./definitions/ShippingAddress');
 
 // Map of defined models (defined in init())
 var definedModels = {};
@@ -27,6 +28,7 @@ function init(sequelize) {
   let item = Item.define(sequelize);
   let category = Category.define(sequelize);
   let condition = Condition.define(sequelize);
+  let shippingAddress = ShippingAddress.define(sequelize);
 
   // Add to definedModels hashMap
   // Node: each key needs to be lower case
@@ -35,6 +37,7 @@ function init(sequelize) {
   definedModels.item = item;
   definedModels.category = category;
   definedModels.condition = condition;
+  definedModels.shippingaddress = shippingAddress;
 
   /**
    * Define various Model associations using the above definitions
@@ -45,6 +48,11 @@ function init(sequelize) {
     foreignKey: 'fk_user',
     otherKey: 'fk_role',
     through: 'user_roles'
+  });
+
+  // A User can have one Shipping Address
+  user.hasOne(shippingAddress, {
+    foreignKey: 'fk_user'
   });
 
   // A condition (new, likenew, fair.. etc) can be associated with many Items
