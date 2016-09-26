@@ -1,6 +1,7 @@
 'use strict';
 
 const userService = require('./../services/userService');
+const isAuth = require('./../middleware/isAuth');
 
 /**
  * User Controller - controllers for all User API routes
@@ -12,7 +13,7 @@ module.exports = (router) => {
   router.post('/user', userService.create);
 
   // Get a specific User
-  router.get('/user/:userId', userService.get);
+  router.get('/user/:userId', isAuth, userService.get);
 
   // Update a specific User
   router.put('/user/:userId', (req, res) => {

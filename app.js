@@ -65,7 +65,7 @@ function init() {
  * Start the server
  */
 
-app.listen(port, init.bind(this));
+app.listen(port, init);
 
 /**
  * Express Middleware
