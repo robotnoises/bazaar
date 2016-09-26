@@ -3,26 +3,24 @@
 const DataType = require('sequelize');
 
 /**
- * Item - A Bazaar Item published for trade
+ * Item - A Bazaar Item photo
  */
 
 // Define Item Model
 function define(sequelize) {
 
-  let Item = sequelize.define('item', {
-    title: {
+  let Photo = sequelize.define('photo', {
+    uri: {
       type: DataType.STRING,
       field: 'title',
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isUrl: true
+      }
     },
     description: {
       type: DataType.TEXT,
-      field: 'description',
-      allowNull: false
-    },
-    ecv: {
-      type: DataType.INTEGER,
-      field: 'estimated_cash_value'
+      field: 'description'
     },
     createdAt: {
       type: DataType.DATE,
@@ -34,7 +32,7 @@ function define(sequelize) {
     }
   });
 
-  return Item;
+  return Photo;
 }
 
 module.exports = {

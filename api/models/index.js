@@ -9,6 +9,7 @@ const config = require('./../../config');
 var User = require('./definitions/User');
 var Role = require('./definitions/Role');
 var Item = require('./definitions/Item');
+var Photo = require('./definitions/Photo');
 var Category = require('./definitions/Category');
 var Condition = require('./definitions/Condition');
 var ShippingAddress = require('./definitions/ShippingAddress');
@@ -26,6 +27,7 @@ function init(sequelize) {
   let user = User.define(sequelize);
   let role = Role.define(sequelize);
   let item = Item.define(sequelize);
+  let photo = Photo.define(sequelize);
   let category = Category.define(sequelize);
   let condition = Condition.define(sequelize);
   let shippingAddress = ShippingAddress.define(sequelize);
@@ -35,6 +37,7 @@ function init(sequelize) {
   definedModels.user = user;
   definedModels.role = role;
   definedModels.item = item;
+  definedModels.photo = photo;
   definedModels.category = category;
   definedModels.condition = condition;
   definedModels.shippingaddress = shippingAddress;
@@ -67,6 +70,11 @@ function init(sequelize) {
     foreignKey: 'fk_category',
     otherKey: 'fk_item',
     through: 'item_categories'
+  });
+
+  // An Item can have many photos
+  item.hasMany(photo, {
+    foreignKey: 'fk_item'
   });
 
   /**
