@@ -44,6 +44,17 @@ function login(req, res) {
     });
 }
 
+function logout(req, res) {
+  req.session.destroy((error) => {
+    if (!error) {
+      res.status(200).send('Logged-out');
+    } else {
+      res.status(500).send();
+    }
+  });
+}
+
 module.exports = {
-  login: login
+  login: login,
+  logout: logout
 };

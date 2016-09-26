@@ -2,6 +2,7 @@
 
 const bcrypt = require('bcrypt');
 const models = require('./../models');
+const isAuth = require('./../middleware/isAuth');
 
 /**
  * Auth Controller - controllers for authenticating Users
@@ -15,7 +16,5 @@ module.exports = (router) => {
   router.post('/auth/login', authService.login);
 
   // Log a User out
-  router.post('/auth/logout', (req, res) => {
-    // todo
-  });
+  router.post('/auth/logout', isAuth, authService.logout);
 };
