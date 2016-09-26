@@ -31,6 +31,11 @@ function define(sequelize) {
     updatedAt: {
       type: DataType.DATE,
       field: 'updated_at'
+    },
+    userId: {
+      type: DataType.UUID,
+      field: 'fk_user',
+      allowNull: false
     }
   });
 

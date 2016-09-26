@@ -29,6 +29,11 @@ function define(sequelize) {
     updatedAt: {
       type: DataType.DATE,
       field: 'updated_at'
+    },
+    itemId: {
+      type: DataType.INTEGER,
+      filed: 'fk_item',
+      allowNull: false
     }
   });
 

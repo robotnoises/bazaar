@@ -57,9 +57,9 @@ var userResponse = {
 
 function create(req, res) {
 
-  let requestBody = req.body;
+  let body = req.body;
 
-  userDAO.create(requestBody)
+  userDAO.create(body)
     .then((created) => {
       return created.addRole(1);
     })

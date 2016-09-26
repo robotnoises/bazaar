@@ -58,6 +58,11 @@ function init(sequelize) {
     foreignKey: 'fk_user'
   });
 
+  // A User can have many Items
+  user.hasMany(item, {
+    foreignKey: 'fk_user'
+  });
+
   // A condition (new, likenew, fair.. etc) can be associated with many Items
   condition.belongsToMany(item, {
     foreignKey: 'fk_condition',
