@@ -74,16 +74,15 @@ app.listen(port, init.bind(this));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// Store User session in Redis
 app.use(expressSession({
   store: new RedisStore({
     host: 'localhost',
     port: 6379,
     db: 1
   }),
-  secret: 'F25E83CC4D994153FF9F453A6F9B5'
+  secret: config.secret,
+  resave: false,
+  saveUninitialized: true
 }));
-
-app.use((req, res, next) => {
-  let foo = req;
-  next();
-})

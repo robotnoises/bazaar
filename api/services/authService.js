@@ -1,14 +1,18 @@
 'use strict';
 
-let bcrypt = require('bcrypt');
-let response = require('./../services/httpResponseService');
-let models = require('./../models');
-let userService = require('./userService');
+const bcrypt = require('bcrypt');
+const response = require('./../services/httpResponseService');
+const models = require('./../models');
+const userService = require('./userService');
 
-let userDAO = models.getModel('User');
+/**
+ * Log a User in
+ */
 
 function login(req, res) {
   
+  const userDAO = models.getModel('User');
+
   // Find a user via the supplied email
 
   userDAO
@@ -19,7 +23,11 @@ function login(req, res) {
     })
     .then((user) => {
       let passwordsMatch = bcrypt.compareSync(req.body.password, user.dataValues.password);
+      
       if (passwordsMatch) {
+        // Persist the session
+        req.session.isAuthenticated = true;
+        req.session.user = new userService.Formatted(user);
         req.session.save(() => {
           res.status(200).send(userService.response.readSuccess(user.dataValues, 'Authentication success.'));
         });
