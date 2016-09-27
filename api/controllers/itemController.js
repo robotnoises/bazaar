@@ -15,7 +15,7 @@ module.exports = (router) => {
   router.post('/item', isAuth, itemService.create);
 
   // Add a photo to an Item
-  router.post('/item/:itemId/photo', itemService.addPhoto);
+  router.post('/item/:itemId/photo', isAuth, itemService.addPhoto);
 
   // Get an Item
   router.get('/item/:itemId', itemService.get);
