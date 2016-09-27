@@ -9,5 +9,10 @@ module.exports = {
   development: (process.env.BAZAAR_DEVELOPMENT_MODE === 'true') ? true : false,
 
   // Auth secret
-  secret: process.env.BAZAAR_SESSION_SECRET || 'testsecret'
+  secret: process.env.BAZAAR_SESSION_SECRET || 'testsecret',
+
+  // Google Cloud Storage
+  googleCloudSecret: process.env.BAZAAR_GOOGLE_CLOUD_SECRET || '',
+  googleCloudEmail: process.env.BAZAAR_GOOGLE_CLOUD_CLIENT_EMAIL || '',
+  googleCloudProjectId: process.env.BAZAAR_GOOGLE_CLOUD_PROJECT_ID || ''
 };

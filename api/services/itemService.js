@@ -1,10 +1,22 @@
 'use strict';
 
+const googleCloudStorage = require('@google-cloud/storage');
+const config = require('./../../config')
 const response = require('./../services/httpResponseService');
 const models = require('./../models');
 
 const itemDAO = models.getModel('Item');
 const photoDAO = models.getModel('Photo');
+
+const photoStorage = googleCloudStorage({
+    projectId: config.googleCloudProjectId,
+    credentials: {
+        private_key: config.googleCloudSecret,
+        client_email: config.googleCloudEmail
+    }
+});
+
+const photoBucket = photoStorage.bucket('bazaar_item_photos');
 
 // todo
 function FormattedItem(data) {
@@ -28,8 +40,13 @@ function get(req, res) {
   // todo
 }
 
+function addPhoto(req, res) {
+
+}
+
 module.exports = {
   create: create,
   get: get,
+  addPhoto: addPhoto,
   Formatted: FormattedItem
 };
