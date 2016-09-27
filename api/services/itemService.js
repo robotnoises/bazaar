@@ -1,7 +1,7 @@
 'use strict';
 
 const googleCloudStorage = require('@google-cloud/storage');
-const config = require('./../../config')
+const config = require('./../config')
 const response = require('./../services/httpResponseService');
 const models = require('./../models');
 

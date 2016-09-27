@@ -5,7 +5,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
-const config = require('./config');
+const config = require('./api/config');
 const api = require('./api');
 const models = require('./api/models');
 
