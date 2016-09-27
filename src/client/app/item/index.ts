@@ -3,3 +3,4 @@
  */
 export * from './item.component';
 export * from './item.routes';
+export * from './item.model';
