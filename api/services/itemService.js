@@ -41,7 +41,24 @@ function get(req, res) {
 }
 
 function addPhoto(req, res) {
+  let fs = require('fs'); // temp
 
+  let readStream = photoBucket.file('test.jpg').createReadStream();
+  let writeStream = fs.createWriteStream(__dirname + '/test.jpg');
+
+  writeStream.on('close', (response) => {
+    res.status(200).json(response);
+  });
+
+  readStream.on('error', (error) => {
+    res.status(500).json(error);
+  });
+
+  writeStream.on('error', (error) => {
+    res.status(500).json(error);
+  })
+
+  readStream.pipe(writeStream);
 }
 
 module.exports = {
