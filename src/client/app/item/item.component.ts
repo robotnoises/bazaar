@@ -6,6 +6,7 @@ import { ItemService} from './item.service';
 @Component({
   moduleId: module.id,
   providers: [ItemService],
+  inputs: ['data'],
   selector: 'bazaar-item',
   templateUrl: 'item.component.html',
   styleUrls: ['item.component.css']
