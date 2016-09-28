@@ -6,8 +6,8 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
 const config = require('./api/config');
-const api = require('./api');
 const models = require('./api/models');
+const api = require('./api');
 
 let RedisStore = require('connect-redis')(expressSession);
 
@@ -86,3 +86,14 @@ app.use(expressSession({
   resave: false,
   saveUninitialized: true
 }));
+
+// For local debugging, allow cross-origin
+if (config.debug) {
+  let cors = require('cors');
+  let options = {
+    origin: 'http://localhost:5555'
+  };
+
+  app.use(cors(options));
+}
+
