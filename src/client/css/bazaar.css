@@ -59,6 +59,14 @@ li {
   max-width: 400px;
 }
 
+.container.skinny {
+  display: block;
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
 /* Buttons */
 
 button {
@@ -78,6 +86,11 @@ button:focus {
   background-color: #fff;
   color: #7b4397;
   border-color: #7b4397;
+}
+
+button.long {
+  width: 100%;
+  text-align: center;
 }
 
 /* Colors */

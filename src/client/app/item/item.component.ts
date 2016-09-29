@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Item } from './index';
-import { ItemService} from './item.service';
+import { ItemService } from './item.service';
 
 @Component({
   moduleId: module.id,

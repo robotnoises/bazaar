@@ -1,0 +1,19 @@
+<div container>
+  <div class="container skinny">
+    <h1>Log in</h1>
+    
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <p>
+        <label for="email">Email</label>
+        <input type="text" placeholder="Enter your email" formControlName="email">
+      </p>
+      <p>
+        <label for="email">Password</label>
+        <input type="password" placeholder="Enter your password" formControlName="password">
+      </p>
+      <p>
+        <button type="submit" class="long">LOG IN</button>
+      </p>
+    </form>
+  </div>
+</div>
