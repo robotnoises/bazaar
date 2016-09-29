@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Login } from './index';
-import { Config } from './../shared/index';
+import { Config, UserService } from './../shared/index';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -11,9 +11,17 @@ export class LoginService {
   constructor(private http: Http) { }
 
   login(loginForm: Login) {
-    return this.http.post(`${Config.API}/auth/login`, loginForm)
+    return this.http.post(`${Config.API}/auth/login`, loginForm, { withCredentials: true })
       .toPromise()
-      .then(response => response.json())
+      .then((response) => {
+        if (response && response.status === 200) {
+          let resp = response.json();
+          UserService.setUser(resp.body);
+          return resp;
+        } else {
+          throw new Error('Not Authorized');
+        }
+      })
       .catch(error => console.log(error));
   }
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Login } from './index';
 import { LoginService } from './login.service';
@@ -15,7 +16,7 @@ export class LoginComponent {
 
   form: any; 
 
-  constructor(private loginService: LoginService) { 
+  constructor(private router: Router, private loginService: LoginService) { 
     this.form =  new FormGroup({
       email: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required])
@@ -26,6 +27,8 @@ export class LoginComponent {
 
   onSubmit() {
     this.loginService.login(new Login(this.form._value.email, this.form._value.password))
-      .then((response) => console.log(response));
+      .then((response) => {
+        this.router.navigate(['/']); // todo pass-in redirect path
+      });
   }
 }

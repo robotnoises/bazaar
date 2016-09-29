@@ -19,15 +19,17 @@ function login(req, res) {
   userDAO
     .find({where: {email: req.body.email}, include: { model: roleDAO }})
     .then((user) => {
-      let passwordsMatch = bcrypt.compareSync(req.body.password, user.dataValues.password);
+
+      let userPassMatch = (user) ? bcrypt.compareSync(req.body.password, user.dataValues.password) : false;
       
-      if (passwordsMatch) {        
+      if (userPassMatch) {        
         // Persist the session
         req.session.isAuthenticated = true;
         req.session.user = new userService.Formatted(user);
         
         // Save session to Redis
         req.session.save(() => {
+          // res.cookie('connect.sid', req.session.id);
           res.status(200).send(userService.response.readSuccess(user.dataValues, 'Authentication success.'));
         });
       } else {

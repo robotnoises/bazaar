@@ -71,7 +71,7 @@ app.listen(port, init);
  * Express Middleware
  */
 
-app.use(cookieParser());
+// app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -84,16 +84,34 @@ app.use(expressSession({
   }),
   secret: config.secret,
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  sameSite: (!config.debug) ? true : 'lax',
+  secure: false,
+  cookie: {
+    // name: 'bazaar.sid',
+    secure: !config.debug,
+    httpOnly: !config.debug,
+    path: '/',
+    expires: new Date(new Date().getTime()+(365 * (24 * 60 * 60 * 1000))) // 1 year from today
+  }
 }));
 
 // For local debugging, allow cross-origin
 if (config.debug) {
   let cors = require('cors');
-  let options = {
-    origin: 'http://localhost:5555'
+  
+  let whitelist = [
+    'http://localhost:5555',
+  ];
+
+  var corsOptions = {
+    origin: function(origin, callback){
+      var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
+      callback(null, originIsWhitelisted);
+    },
+    credentials: true
   };
 
-  app.use(cors(options));
+  app.use(cors(corsOptions));
 }
 
