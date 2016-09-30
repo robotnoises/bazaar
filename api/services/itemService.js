@@ -27,6 +27,8 @@ function create(req, res) {
   
   let body = req.body;
 
+  body.userId = req.session.user.userId;
+
   itemDAO.create(body)
     .then((created) => {
       res.status(200).json(new FormattedItem(created));
