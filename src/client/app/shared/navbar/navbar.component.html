@@ -2,6 +2,7 @@
   <a [routerLink]="['/']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}">Home</a>
   <a [routerLink]="['/market']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}">Marketplace</a>
   <a [routerLink]="['/about']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}">About Bazaar</a>
-  <a [routerLink]="['/login']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}">Log in</a>
+  <a *ngIf="!isAuthenticated" [routerLink]="['/login']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}">Log in</a>
+  <a *ngIf="isAuthenticated" [routerLink]="['/login']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}">Log out</a>
 </nav>
 <div class="ruler gradient"></div>

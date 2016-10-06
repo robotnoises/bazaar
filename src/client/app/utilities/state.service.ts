@@ -41,17 +41,34 @@ function stringify(input: any) {
 
 const BAZAAR_LS_PREFIX = '$bazaar:';
 
-// todo, load this from localStorage
-let ObservedData = {};
+let subscriptions = {};
+let subscriptionsInitialized = false;
+
+// function initializeSubscriptions() {
+//   let localStorageData = window.localStorage;
+//   for (var key in localStorageData) {
+//     if (key.indexOf(BAZAAR_LS_PREFIX) === 0) {
+//       subscriptions[key] = localStorageData[key];
+//     }
+//   }
+//   subscriptionsInitialized = true;
+//   console.log(subscriptions);
+// }
+
+// initializeSubscriptions();
 
 @Injectable()
 export class StateService {
   
+  private subscriptions: any;
+
   private static observe(key: string, value?: any): Observable<any> {
-    
+
     let prefixedKey = BAZAAR_LS_PREFIX + key;
     let observeableSource$ = new Subject<string>();
-    let observed$ = observeableSource$.asObservable();
+    let observed$ = subscriptions[prefixedKey] || observeableSource$.asObservable();
+
+    subscriptions[prefixedKey] = observed$;
 
     if (value) {
       // Stringify the input
@@ -62,9 +79,16 @@ export class StateService {
 
       // publish changes
       observeableSource$.next(value);
+    } else {
+      let storageValue = window.localStorage.getItem(prefixedKey);
+      if (storageValue) {
+        setTimeout(function() {
+          observeableSource$.next(parseStringified(storageValue));  
+        }, 1); // todo: this is probably bad
+      }
     }
-    
-    return observed$;
+
+    return subscriptions[prefixedKey];
   }
   
   // Optionally add user data and observe changes
