@@ -28,7 +28,9 @@ export class LoginComponent {
   onSubmit() {
     this.loginService.login(new Login(this.form._value.email, this.form._value.password))
       .then((response) => {
-        this.router.navigate(['/']); // todo pass-in redirect path
+        if (response && response.statusCode === 200) {
+          this.router.navigate(['/']); // todo pass-in redirect path
+        }
       });
   }
 }
