@@ -28,4 +28,11 @@ export class LoginService {
         console.log(error)
       });
   }
+
+  logout() {
+    StateService.authChange(false);
+    StateService.userChange({});
+    // todo: remove cookie
+    // todo: redirect
+  }
 }

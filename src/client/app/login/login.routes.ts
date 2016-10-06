@@ -5,5 +5,9 @@ export const LoginRoutes: Route[] = [
   { 
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'logout',
+    component: LoginComponent
   }
 ];

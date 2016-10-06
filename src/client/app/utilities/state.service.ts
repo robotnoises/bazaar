@@ -32,7 +32,7 @@ function parseStringified(input: any) {
 function stringify(input: any) {
   if (input && typeof input === 'string') {
     return input;
-  } else if (input) {
+  } else if (input || input === false) {
     return JSON.stringify(input);
   } else {
     throw new Error('Cannot stringify(): Input is undefined.');
