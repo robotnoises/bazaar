@@ -3,13 +3,14 @@ import { Http, Headers } from '@angular/http';
 import { Login } from './index';
 import { Config } from './../shared/index';
 import { StateService } from './../utilities/index';
+import { CookieService } from 'angular2-cookie/services/cookies.service';
 
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class LoginService {
   
-  constructor(private http: Http) { }
+  constructor(private http: Http, private cookieSservice: CookieService) { }
 
   login(loginForm: Login) {
     return this.http.post(`${Config.API}/auth/login`, loginForm)
@@ -25,14 +26,22 @@ export class LoginService {
         }
       })
       .catch(error => {
-        console.log(error)
+        console.error(error)
       });
   }
 
   logout() {
     StateService.authChange(false);
     StateService.userChange({});
-    // todo: remove cookie
-    // todo: redirect
+    
+    return this.http.post(`${Config.API}/auth/logout`, {})
+      .toPromise()
+      .then((response) => {
+        // todo: redirect
+        this.cookieSservice.remove('connect.sid');
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 }
