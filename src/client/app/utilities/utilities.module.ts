@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpExtension } from './index';
+import { HttpExtension, StateService } from './index';
 
 @NgModule({
   imports: [CommonModule],
-  providers: [HttpExtension]
-  // declarations: [HttpExtension],
-  // exports: [HttpExtension]
+  providers: [HttpExtension, StateService]
 })
 export class UtilitiesModule { }

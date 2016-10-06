@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Login } from './index';
-import { Config, UserService } from './../shared/index';
+import { Config } from './../shared/index';
+import { StateService } from './../utilities/index';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -16,7 +17,8 @@ export class LoginService {
       .then((response) => {
         if (response && response.status === 200) {
           let resp = response.json();
-          UserService.setUser(resp.body);
+          StateService.user(resp.body);
+          StateService.auth(true);
           return resp;
         } else {
           throw new Error('Not Authorized');
