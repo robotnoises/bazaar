@@ -17,8 +17,8 @@ export class LoginService {
       .then((response) => {
         if (response && response.status === 200) {
           let resp = response.json();
-          StateService.user(resp.body);
-          StateService.auth(true);
+          StateService.userChange(resp.body);
+          StateService.authChange(true);
           return resp;
         } else {
           throw new Error('Not Authorized');

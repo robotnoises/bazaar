@@ -57,49 +57,68 @@ let subscriptionsInitialized = false;
 
 // initializeSubscriptions();
 
+const userKey = 'user';
+const authKey = 'auth';
+
 @Injectable()
 export class StateService {
-  
-  private subscriptions: any;
 
-  private static observe(key: string, value?: any): Observable<any> {
-
+  private static localStorageGet(key: string) {
     let prefixedKey = BAZAAR_LS_PREFIX + key;
-    let observeableSource$ = new Subject<string>();
-    let observed$ = subscriptions[prefixedKey] || observeableSource$.asObservable();
+    return parseStringified(window.localStorage.getItem(prefixedKey));
+  }
 
-    subscriptions[prefixedKey] = observed$;
+  private static localStorageSet(key: string, value: any) {
+    let prefixedKey = BAZAAR_LS_PREFIX + key;
+    window.localStorage.setItem(prefixedKey, stringify(value));
+  }
 
-    if (value) {
-      // Stringify the input
-      let stringValue = stringify(value);
-      
-      // Persist via localStorage
-      window.localStorage.setItem(prefixedKey, stringValue);
+  private static observe(key: string): Observable<any> {
+    let prefixedKey = BAZAAR_LS_PREFIX + key;
+    
+    // Track our observables
+    subscriptions[prefixedKey] = subscriptions[prefixedKey] || new Subject<string>();
 
-      // publish changes
-      observeableSource$.next(value);
-    } else {
-      let storageValue = window.localStorage.getItem(prefixedKey);
-      if (storageValue) {
-        setTimeout(function() {
-          observeableSource$.next(parseStringified(storageValue));  
-        }, 1); // todo: this is probably bad
-      }
+    // Check to see if there is any persisted data in localStorage for this key
+    let loadedFromStorage = this.localStorageGet(key);
+    
+    if (loadedFromStorage) {
+      this.change(key, loadedFromStorage);
     }
 
-    return subscriptions[prefixedKey];
-  }
-  
-  // Optionally add user data and observe changes
-  static user(user?: any): Observable<any> {
-    const userKey = 'user';
-    return this.observe(userKey, user); 
+    // return observable
+    return subscriptions[prefixedKey].asObservable();
   }
 
-  // Optionally add auth state and observe changes
-  static auth(state?: boolean): Observable<any> {
-    const authKey = 'auth';
-    return this.observe(authKey, state || false); 
+  private static change(key: string, value: any): void {
+    let prefixedKey = BAZAAR_LS_PREFIX + key;
+    let sub$ = subscriptions[prefixedKey];
+
+    this.localStorageSet(key, value);
+    
+    if (sub$) {
+      setTimeout(() => {
+        sub$.next(value);
+      }, 1); // todo: might be bad
+    }
+  }
+  
+  // Observe User data changes
+  static user(): Observable<any> {
+    return this.observe(userKey); 
+  }
+
+  // Change User data
+  static userChange(user: any): void {
+    this.change(userKey, user)
+  }
+
+  // Observe auth state changes
+  static auth(): Observable<any> {
+    return this.observe(authKey); 
+  }
+
+  static authChange(state: boolean): void {
+    this.change(authKey, state);
   }
 }
