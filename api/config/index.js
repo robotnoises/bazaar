@@ -3,7 +3,7 @@
 module.exports = {
   
   // Debug mode
-  debug: (process.env.BAZAAR_DEBUG_MODE === 'true') ? true : false,
+  local: (process.env.BAZAAR_DEBUG_MODE === 'true') ? true : false,
 
   // Development mode - CAUTION: changing this to true will result in forced db sync!
   dropDatabase: (process.env.BAZAAR_DROP_DB === 'true') ? true : false,

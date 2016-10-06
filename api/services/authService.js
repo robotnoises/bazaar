@@ -29,7 +29,6 @@ function login(req, res) {
         
         // Save session to Redis
         req.session.save(() => {
-          // res.cookie('connect.sid', req.session.id);
           res.status(200).send(userService.response.readSuccess(user.dataValues, 'Authentication success.'));
         });
       } else {

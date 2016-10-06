@@ -87,7 +87,7 @@ function init(sequelize) {
    */
 
   // Forced-sync (DROP IF EXIST) when in debug mode + dropDatabase === true
-  return sequelize.sync({ force: (config.dropDatabase && config.debug) })
+  return sequelize.sync({ force: (config.dropDatabase && config.local) })
     // Create Item Conditions
     .then(() => condition.create({ value: 'New' }))
     .then(() => condition.create({ value: 'Like New' }))

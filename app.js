@@ -85,19 +85,19 @@ app.use(expressSession({
   secret: config.secret,
   resave: false,
   saveUninitialized: true,
-  sameSite: (!config.debug) ? true : 'lax',
+  sameSite: (!config.local) ? true : 'lax',
   secure: false,
   cookie: {
     // name: 'bazaar.sid',
-    secure: !config.debug,
-    httpOnly: !config.debug,
+    secure: !config.local,
+    httpOnly: !config.local,
     path: '/',
     expires: new Date(new Date().getTime()+(365 * (24 * 60 * 60 * 1000))) // 1 year from today
   }
 }));
 
 // For local debugging, allow cross-origin
-if (config.debug) {
+if (config.local) {
   let cors = require('cors');
   
   let whitelist = [
@@ -113,5 +113,10 @@ if (config.debug) {
   };
 
   app.use(cors(corsOptions));
+} else {
+  // Have Express serve static app assets at /
+  app.use('/css', express.static(__dirname + '/dist/prod/css'));
+  app.use('/js', express.static(__dirname + '/dist/prod/js'));
+  app.use('/assets', express.static(__dirname + '/dist/assets'));
+  app.use('/', express.static(__dirname + '/dist/prod'));
 }
-
