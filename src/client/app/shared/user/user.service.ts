@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
 
 @Injectable()
 export class UserService {
@@ -25,8 +26,11 @@ export class UserService {
     window.localStorage.setItem('bazaar-user', '{}');
   }
 
-  static isAuthenticated(): boolean {
-    return (window.localStorage.getItem('bazaar-auth') === 'true');
+  static isAuthenticated(): void { // Observable<any> {
+    // return Observable.create(observer => {
+    //   observer.next(window.localStorage.getItem('bazaar-auth') === 'true');
+    //   observer.complete();
+    // });
   }
 
   static isRole(role: string): void {

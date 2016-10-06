@@ -11,7 +11,7 @@ export class ItemService {
   constructor(private http: Http) { }
 
   create(item: Item): any { // todo promise
-    return this.http.post(`${Config.API}/item`, item, { withCredentials: true })
+    return this.http.post(`${Config.API}/item`, item)
       .toPromise()
       .then(response => response.json() as Item)
       .catch(error => console.log(error));

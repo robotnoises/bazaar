@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { APP_BASE_HREF } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { HttpModule } from '@angular/http';
+import { Http, HttpModule, XHRBackend, BaseRequestOptions} from '@angular/http';
 import { AppComponent } from './app.component';
 import { routes } from './app.routes';
 
@@ -12,6 +12,9 @@ import { MarketplaceModule } from './marketplace/marketplace.module';
 import { ItemModule } from './item/item.module';
 import { SharedModule } from './shared/shared.module';
 import { LoginModule } from './login/login.module';
+import { UtilitiesModule } from './utilities/utilities.module';
+
+import { HttpExtension } from './utilities/index';
 
 @NgModule({
   imports: [
@@ -23,13 +26,22 @@ import { LoginModule } from './login/login.module';
     MarketplaceModule, 
     ItemModule, 
     SharedModule.forRoot(), 
-    LoginModule
+    LoginModule,
+    UtilitiesModule
   ],
   declarations: [AppComponent],
-  providers: [{
+  providers: [
+    {
     provide: APP_BASE_HREF,
     useValue: '<%= APP_BASE %>'
-  }],
+    }, 
+    {
+      provide: Http,
+      useClass: HttpExtension,
+      //useFactory: (backend: XHRBackend) => new HttpExtension(backend),
+      deps: [XHRBackend]
+    }
+  ],
   bootstrap: [AppComponent]
 })
 

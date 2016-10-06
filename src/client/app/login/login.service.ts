@@ -11,7 +11,7 @@ export class LoginService {
   constructor(private http: Http) { }
 
   login(loginForm: Login) {
-    return this.http.post(`${Config.API}/auth/login`, loginForm, { withCredentials: true })
+    return this.http.post(`${Config.API}/auth/login`, loginForm)
       .toPromise()
       .then((response) => {
         if (response && response.status === 200) {
@@ -22,6 +22,8 @@ export class LoginService {
           throw new Error('Not Authorized');
         }
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        console.log(error)
+      });
   }
 }
