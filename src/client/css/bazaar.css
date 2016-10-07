@@ -24,9 +24,9 @@ body {
 /* Fonts */
 
 body {
-  font-family: 'Cabin', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 600;
   color: #555;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -41,10 +41,24 @@ h6,
 p,
 a, 
 li {
-  font-family: 'Cabin', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   color: #555;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Links */
+
+a {
+  color: #555 !important;
+  transition: border 300ms;
+  padding: 4px 0;
+  border-bottom: 3px solid transparent;
+}
+
+a:hover,
+a.router-link-active {
+  border-color: #ec2490;
 }
 
 /* Container */
@@ -65,6 +79,12 @@ li {
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
+}
+
+.nav-secondary {
+  height: 38px;
+  width: 100%;
+  background-color: rgba(0,0,0,0.1);
 }
 
 /* Buttons */
@@ -118,8 +138,12 @@ button.long {
 /* Shadows */
 
 .shadow-lg {
-  box-shadow: 0 6px 8px rgba(0,0,0,0.2)
-;}
+  box-shadow: 0 6px 8px rgba(0,0,0,0.2);
+}
+
+.shadow-sm {
+  box-shadow: 0 3px 4px rgba(0,0,0,0.2);
+}
 
 /* Rulers */
 
