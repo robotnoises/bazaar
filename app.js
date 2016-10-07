@@ -5,6 +5,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
+const redisUrl = require('redis-url');
 const config = require('./api/config');
 const models = require('./api/models');
 const api = require('./api');
@@ -26,18 +27,23 @@ function init() {
    * Connect to db
    */
 
-  var sequelize = new Sequelize(
+  let sequelizeOptions = {
+    host: 'localhost',
+    dialect: 'postgres',
+    pool: {
+      max: 5,
+      min: 0,
+      idle: 10000
+    }
+  }
+
+  let sequelize = (config.local) ? new Sequelize(
     process.env.BAZAAR_DB_NAME,
     process.env.BAZAAR_DB_USER,
-    process.env.BAZAAR_DB_PASS, {
-      host: 'localhost',
-      dialect: 'postgres',
-      pool: {
-        max: 5,
-        min: 0,
-        idle: 10000
-      }
-    });
+    process.env.BAZAAR_DB_PASS, 
+    sequelizeOptions
+  ) :
+  new Sequelize(process.env.DATABASE_URL, sequelizeOptions);
 
   /**
    * Define db Models
@@ -75,13 +81,16 @@ app.listen(port, init);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// Store User session in Redis
-app.use(expressSession({
-  store: new RedisStore({
+let redisStoreOptions = (config.local) ? 
+  {
     host: 'localhost',
     port: 6379,
     db: 1
-  }),
+  } : redisUrl.parse(process.env.REDIS_URL);
+
+// Store User session in Redis
+app.use(expressSession({
+  store: new RedisStore(redisStoreOptions),
   secret: config.secret,
   resave: false,
   saveUninitialized: true,
