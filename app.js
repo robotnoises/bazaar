@@ -22,6 +22,7 @@ const port = process.env.PORT || 8888;
 function init() {
   
   console.log('Server started. Listening on port:', port);
+  console.log('Production: ', config.local);
 
   /**
    * Connect to db
@@ -124,8 +125,8 @@ if (config.local) {
   app.use(cors(corsOptions));
 } else {
   // Have Express serve static app assets at /
+  app.use('/', express.static(__dirname + '/dist/prod'));
   app.use('/css', express.static(__dirname + '/dist/prod/css'));
   app.use('/js', express.static(__dirname + '/dist/prod/js'));
   app.use('/assets', express.static(__dirname + '/dist/assets'));
-  app.use('/', express.static(__dirname + '/dist/prod'));
 }
