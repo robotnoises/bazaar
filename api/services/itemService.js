@@ -6,6 +6,7 @@ const response = require('./../services/httpResponseService');
 const models = require('./../models');
 
 const itemDAO = models.getModel('Item');
+const listItemDAO = models.getModel('ListItem');
 const photoDAO = models.getModel('Photo');
 
 const photoStorage = googleCloudStorage({
@@ -26,16 +27,28 @@ function FormattedItem(data) {
 function create(req, res) {
   
   let body = req.body;
+  let createdItem = {};
 
   body.userId = req.session.user.userId;
 
   itemDAO.create(body)
     .then((created) => {
-      res.status(200).json(new FormattedItem(created));
+      createdItem = created;
+      return listItemDAO.create({
+        promoted: Math.floor(Math.random() * 2), // temp
+        itemId: created.id
+      });
+    })
+    .then(() => {
+      res.status(200).json(new FormattedItem(createdItem));
     })
     .catch((error) => {
       res.status(500).json(error);
-    })
+    });
+}
+
+function list (req, res) {
+  // todo
 }
 
 function get(req, res) {
@@ -65,6 +78,7 @@ function addPhoto(req, res) {
 
 module.exports = {
   create: create,
+  list: list,
   get: get,
   addPhoto: addPhoto,
   Formatted: FormattedItem

@@ -8,6 +8,7 @@ const config = require('./../config');
 
 var User = require('./definitions/User');
 var Role = require('./definitions/Role');
+var ListIem = require('./definitions/ListItem');
 var Item = require('./definitions/Item');
 var Photo = require('./definitions/Photo');
 var Category = require('./definitions/Category');
@@ -27,6 +28,7 @@ function init(sequelize) {
   let user = User.define(sequelize);
   let role = Role.define(sequelize);
   let item = Item.define(sequelize);
+  let listItem = ListIem.define(sequelize);
   let photo = Photo.define(sequelize);
   let category = Category.define(sequelize);
   let condition = Condition.define(sequelize);
@@ -36,6 +38,7 @@ function init(sequelize) {
   // Node: each key needs to be lower case
   definedModels.user = user;
   definedModels.role = role;
+  definedModels.listitem = listItem;
   definedModels.item = item;
   definedModels.photo = photo;
   definedModels.category = category;
@@ -55,12 +58,14 @@ function init(sequelize) {
 
   // A User can have one Shipping Address
   user.hasOne(shippingAddress, {
-    foreignKey: 'fk_user'
+    foreignKey: 'fk_user',
+    onDelete: 'cascade'
   });
 
   // A User can have many Items
   user.hasMany(item, {
-    foreignKey: 'fk_user'
+    foreignKey: 'fk_user',
+    onDelete: 'cascade'
   });
 
   // A condition (new, likenew, fair.. etc) can be associated with many Items
@@ -79,7 +84,14 @@ function init(sequelize) {
 
   // An Item can have many photos
   item.hasMany(photo, {
-    foreignKey: 'fk_item'
+    foreignKey: 'fk_item',
+    onDelete: 'cascade'
+  });
+
+  // An Item has one "list" item associated with it
+  item.hasOne(listItem, {
+    foreignKey: 'itemId',
+    onDelete: 'cascade'
   });
 
   /**

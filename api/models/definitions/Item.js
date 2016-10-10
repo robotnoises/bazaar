@@ -9,6 +9,13 @@ const DataType = require('sequelize');
 // Define Item Model
 function define(sequelize) {
 
+  /**
+   * Potential columns:
+   * 
+   * tags
+   * looking_for (items sought in exchange)
+   */
+
   let Item = sequelize.define('item', {
     title: {
       type: DataType.STRING,
