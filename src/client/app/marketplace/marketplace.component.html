@@ -1,5 +1,8 @@
 <div container>
   <h1>Marketplace</h1>
-  <!-- Todo -->
-  <a (click)="itemSelect(1234)">Go to id</a>
+
+  <!-- List of items -->
+  <div class="card" [ngClass]="{'promoted': i.promoted}" *ngFor="let i of listItems">
+    <a (click)="itemSelect(i.itemId)">Go to {{i.itemId}}</a>
+  </div>
 </div>

@@ -48,7 +48,13 @@ function create(req, res) {
 }
 
 function list (req, res) {
-  // todo
+  listItemDAO.all()
+    .then((listItems) => {
+      res.json(listItems.map(li => li.dataValues));
+    })
+    .catch((error) => {
+      res.status(500).send();
+    })
 }
 
 function get(req, res) {

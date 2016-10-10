@@ -87,6 +87,18 @@ a.router-link-active {
   background-color: rgba(0,0,0,0.1);
 }
 
+/* Cards */
+
+.card {
+  background: #fff;
+  height: 280px;
+  width: 280px;
+}
+
+.card.promoted {
+  width: 560px;
+}
+
 /* Buttons */
 
 button {

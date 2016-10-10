@@ -21,5 +21,5 @@ module.exports = (router) => {
   router.get('/item/:itemId', itemService.get);
 
   // Get a list of Items
-  router.get('/item', itemService.get);
+  router.get('/item', itemService.list);
 };

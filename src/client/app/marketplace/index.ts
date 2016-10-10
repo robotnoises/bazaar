@@ -3,3 +3,4 @@
  */
 export * from './marketplace.component';
 export * from './marketplace.routes';
+export * from './marketplace.service';
