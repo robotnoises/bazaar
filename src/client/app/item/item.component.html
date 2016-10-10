@@ -1,13 +1,17 @@
-<div container>
-  <div>
-    <h1>Item</h1>
-    <p>item id is: "{{itemId}}"</p>
-
-    <!-- Temp -->
+<div>
+  <div class="bazaar-card" [ngClass]="{'loading': !loaded}">
     <div>
-      <p>
-        <button (click)="create()">Create test</button>
-      </p>
+      <p>{{item.title}}</p>
+      <p>{{item.description}}</p>
+      <!--<h1>Item</h1>
+      <p>item id is: "{{itemId}}"</p>-->
+
+      <!-- Temp -->
+      <!--<div>
+        <p>
+          <button (click)="create()">Create test</button>
+        </p>
+      </div>-->
     </div>
   </div>
 </div>

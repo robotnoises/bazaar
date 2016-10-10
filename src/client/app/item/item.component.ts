@@ -6,25 +6,32 @@ import { ItemService } from './item.service';
 @Component({
   moduleId: module.id,
   providers: [ItemService],
-  inputs: ['data'],
+  inputs: ['itemId'],
   selector: 'bazaar-item',
   templateUrl: 'item.component.html',
   styleUrls: ['item.component.css']
 })
 export class ItemComponent {
 
-  itemId: string;
+  loaded: boolean;
   item: Item;
 
-  constructor(private route: ActivatedRoute, private itemService: ItemService) { 
-    this.itemId = '';
-    this.item = null;
+  constructor(private route: ActivatedRoute, private itemService: ItemService) {    
+    this.loaded = false;
+    this.item = new Item();
   }
 
   ngOnInit() {
-    this.route.params.forEach(p => {
-      this.itemId = p['itemId'];
-    });
+    this.itemService.get(this.itemId)
+      .then((item) => {
+        if (item) {
+          this.item = item as Item;
+          this.loaded = true;
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   // Public methods

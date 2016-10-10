@@ -50,7 +50,7 @@ function create(req, res) {
 function list (req, res) {
   listItemDAO.all()
     .then((listItems) => {
-      res.json(listItems.map(li => li.dataValues));
+      res.status(200).json(listItems.map(li => li.dataValues));
     })
     .catch((error) => {
       res.status(500).send();
@@ -58,7 +58,13 @@ function list (req, res) {
 }
 
 function get(req, res) {
-  // todo
+  itemDAO.findById(req.params.itemId)
+    .then((item) => {
+      res.status(200).json(new FormattedItem(item.dataValues));
+    })
+    .catch((error) => {
+      res.status(500).send();
+    });
 }
 
 function addPhoto(req, res) {

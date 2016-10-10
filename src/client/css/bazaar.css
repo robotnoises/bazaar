@@ -91,7 +91,6 @@ a.router-link-active {
 
 .bazaar-grid {
   display: inline-block;
-  height: 280px;
   width: 25%;
   border: 5px solid #f3f3f3;
 }
@@ -103,7 +102,13 @@ a.router-link-active {
 /* Cards */
 
 .bazaar-card {
+  height: 280px;
   background: #fff;
+  transition: opacity 500ms;
+}
+
+.bazaar-card.loading {
+  opacity: 0.65;
 }
 
 /* Buttons */

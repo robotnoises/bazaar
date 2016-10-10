@@ -2,7 +2,5 @@
   <h1>Marketplace</h1>
 
   <!-- List of items -->
-  <div class="bazaar-card bazaar-grid" *ngFor="let i of listItems" [ngClass]="{'promoted': i.promoted}">
-    <a (click)="itemSelect(i.itemId)">Go to {{i.itemId}}</a>
-  </div>
+  <bazaar-item class="bazaar-grid" *ngFor="let i of listItems" [ngClass]="{'promoted': i.promoted}" [(itemId)]="i.itemId"></bazaar-item>
 </div>
