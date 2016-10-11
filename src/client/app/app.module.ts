@@ -13,6 +13,7 @@ import { ItemModule } from './item/item.module';
 import { SharedModule } from './shared/shared.module';
 import { LoginModule } from './login/login.module';
 import { UtilitiesModule } from './utilities/utilities.module';
+import { SearchModule } from './search/search.module';
 
 import { HttpExtension } from './utilities/index';
 
@@ -27,7 +28,8 @@ import { HttpExtension } from './utilities/index';
     ItemModule, 
     SharedModule.forRoot(), 
     LoginModule,
-    UtilitiesModule
+    UtilitiesModule,
+    SearchModule
   ],
   declarations: [AppComponent],
   providers: [

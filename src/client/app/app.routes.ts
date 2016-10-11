@@ -5,11 +5,13 @@ import { HomeRoutes } from './home/index';
 import { MarketplaceRoutes } from './marketplace/index';
 import { ItemRoutes } from './item/index';
 import { LoginRoutes } from './login/index';
+import { SearchRoutes } from './search/index';
 
 export const routes: Routes = [
   ...HomeRoutes,
   ...AboutRoutes,
   ...MarketplaceRoutes,
   ...ItemRoutes,
-  ...LoginRoutes
+  ...LoginRoutes,
+  ...SearchRoutes
 ];
