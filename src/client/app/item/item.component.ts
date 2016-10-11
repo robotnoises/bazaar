@@ -46,7 +46,9 @@ export class ItemComponent {
       .then((item) => {
         if (item) {
           this.item = item as Item;
-          this.loaded = true;
+          setTimeout(() => {
+            this.loaded = true;
+          }, 100);
         }
       })
       .catch((error) => {

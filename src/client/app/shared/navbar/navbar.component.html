@@ -1,14 +1,14 @@
 <nav>
   <a [routerLink]="['/']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}"><span>Home</span></a>
   <a [routerLink]="['/market']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}"><span>Marketplace</span></a>
-  <a [routerLink]="['/about']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}"><span>About Bazaar</span></a>
+  <!--<a [routerLink]="['/about']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}"><span>About</span></a>-->
+  <a [routerLink]="['/about']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}"><span>Search</span></a>
   
   <a *ngIf="!isAuthenticated" [routerLink]="['/login']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}"><span>Log in</span></a>
-  <a *ngIf="isAuthenticated" (click)="logout()"><span>Log out</span></a>
   
-  <i class="fa fa-user pull-right pointer"></i>
-  <i class="fa fa-heart pull-right pointer"></i>
-  <i class="fa fa-bell pull-right pointer"></i>
+  <i *ngIf="isAuthenticated" class="fa fa-user pull-right pointer" (click)="logout()"></i>
+  <i *ngIf="isAuthenticated" class="fa fa-heart pull-right pointer"></i>
+  <i *ngIf="isAuthenticated" class="fa fa-bell pull-right pointer"></i>
   
 </nav>
 <nav class="nav-secondary shadow-inset-sm"></nav>

@@ -1,8 +1,15 @@
-<div class="bazaar-card" [ngClass]="{'loading': !loaded, 'expanded': expanded, 'container': expanded}">
+<div class="bazaar-card pointer" [ngClass]="{'loading': !loaded, 'expanded': expanded, 'container': expanded}" (click)="expand()">
+  
+  <div *ngIf="!loaded" class="bazaar-spinner">
+    <div class="bounce1"></div>
+    <div class="bounce2"></div>
+    <div class="bounce3"></div>
+  </div>
+
   <div>
     <p>{{item.title}}</p>
     <p>{{item.description}}</p>
-    <p *ngIf="!expanded"><a (click)="expand()">View</a></p>
+    <!--<p *ngIf="!expanded"><a (click)="expand()">View</a></p>-->
       <!--<h1>Item</h1>
       <p>item id is: "{{itemId}}"</p>-->
 

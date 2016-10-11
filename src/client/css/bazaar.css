@@ -48,10 +48,10 @@ h6,
 p,
 a, 
 li {
-  font-family: 'Open Sans', sans-serif;
+  /*font-family: 'Open Sans', sans-serif;
   color: #000;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -moz-osx-font-smoothing: grayscale;*/
 }
 
 /* Links */
@@ -115,17 +115,62 @@ a.router-link-active {
   height: 280px;
   padding: 10px;
   background: #fff;
-  transition: opacity 500ms;
+  transition: all 500ms;
 }
 
 .bazaar-card.loading {
-  opacity: 0.65;
+  background: #eee;
+  color: #eee;
 }
 
 .bazaar-card.expanded {
   height: 100%;
   width: 100%;
   background: transparent;
+}
+
+/* Loading indicator */
+
+.bazaar-spinner {
+  margin: 137px auto 0;
+  width: 70px;
+  text-align: center;
+}
+
+.bazaar-spinner > div {
+  width: 6px;
+  height: 6px;
+  background-color: #000;
+
+  border-radius: 100%;
+  display: inline-block;
+  -webkit-animation: sk-bouncedelay .7s infinite ease-in-out both;
+  animation: sk-bouncedelay .7s infinite ease-in-out both;
+}
+
+.bazaar-spinner .bounce1 {
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+
+.bazaar-spinner .bounce2 {
+  -webkit-animation-delay: -0.8s;
+  animation-delay: -0.8s;
+}
+
+@-webkit-keyframes sk-bouncedelay {
+  0%, 80%, 100% { -webkit-transform: scale(0) }
+  40% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bouncedelay {
+  0%, 80%, 100% { 
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 40% { 
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+  }
 }
 
 /* Buttons */
