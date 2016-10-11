@@ -21,13 +21,20 @@ body {
   background-color: #f3f3f3;
 }
 
+/* Branding */
+
+.logo {
+  text-shadow: 3px 3px 0 #fff;
+  font-family: 'Bangers', cursive;
+}
+
 /* Fonts */
 
 body {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   font-weight: 600;
-  color: #555;
+  color: #000;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -42,7 +49,7 @@ p,
 a, 
 li {
   font-family: 'Open Sans', sans-serif;
-  color: #555;
+  color: #000;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -50,15 +57,15 @@ li {
 /* Links */
 
 a {
-  color: #555 !important;
+  color: #000;
   transition: border 300ms;
-  padding: 4px 0;
-  border-bottom: 3px solid transparent;
+  padding: 5px 0;
+  border-bottom: 5px solid transparent;
 }
 
 a:hover,
 a.router-link-active {
-  border-color: #ec2490;
+  border-color: #000;
 }
 
 /* Container */
@@ -73,7 +80,7 @@ a.router-link-active {
 }
 
 .jumbotron {
-  height: 300px;
+  height: 332px;
 }
 
 .jumbotron p {
@@ -88,27 +95,6 @@ a.router-link-active {
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
-}
-
-nav > i.fa.pull-right {
-  display: inline-block;
-  vertical-align: middle;
-  font-size: 20px;
-  line-height: 48px;
-  margin-left: 20px;
-  transition: color 300ms;
-}
-
-nav > i.fa:hover,
-nav > i.fa:active,
-nav > i.fa:focus {
-  color: #ec2490;
-}
-
-.nav-secondary {
-  height: 38px;
-  width: 100%;
-  background-color: rgba(0,0,0,0.1);
 }
 
 /* Grid */
@@ -145,22 +131,32 @@ nav > i.fa:focus {
 /* Buttons */
 
 button {
-  background-color: transparent;
+  /*background-color: transparent;
   border-radius: 0;
   border-width: 3px;
   border-style: solid;
   border-color: #ec2490;
   color: #ec2490;
   line-height: normal;
-  padding: 8px 18px;
+  padding: 8px 18px;*/
+  background-color: #000;
+  color: #fff;
+  font-weight: 700;
+  line-height: normal;
+  padding: 10px 20px;
+  margin-bottom: 6px;
 }
 
 button:hover, 
 button:active,
 button:focus {
-  background-color: #fff;
+  /*background-color: #fff;
   color: #7b4397;
-  border-color: #7b4397;
+  border-color: #7b4397;*/
+  background-color: #000;
+  color: #fff;
+  box-shadow: 6px 6px #fff;
+  margin-bottom: 0;
 }
 
 button.long {
@@ -182,6 +178,14 @@ button.long {
   color: #7b4397;
 }
 
+.yellow {
+  color: #f1c40f;
+}
+
+div.yellow {
+  background-color: #f1c40f;
+}
+
 /* Gradients */
 
 .gradient {
@@ -199,6 +203,15 @@ button.long {
 .shadow-sm {
   box-shadow: 0 3px 4px rgba(0,0,0,0.2);
 }
+
+.shadow-inset-lg {
+  box-shadow: 0 6px 8px rgba(0,0,0,0.2) inset;
+}
+
+.shadow-inset-sm {
+  box-shadow: 0 3px 4px rgba(0,0,0,0.2) inset;
+}
+
 
 /* Rulers */
 
