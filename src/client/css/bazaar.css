@@ -63,6 +63,15 @@ a.router-link-active {
 
 /* Container */
 
+.container {
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 100%;
+}
+
 .jumbotron {
   height: 300px;
 }
@@ -103,12 +112,19 @@ a.router-link-active {
 
 .bazaar-card {
   height: 280px;
+  padding: 10px;
   background: #fff;
   transition: opacity 500ms;
 }
 
 .bazaar-card.loading {
   opacity: 0.65;
+}
+
+.bazaar-card.expanded {
+  height: 100%;
+  width: 100%;
+  background: transparent;
 }
 
 /* Buttons */

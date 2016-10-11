@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Item } from './index';
 import { ItemService } from './item.service';
 
@@ -14,14 +14,34 @@ import { ItemService } from './item.service';
 export class ItemComponent {
 
   loaded: boolean;
+  expanded: boolean;
   item: Item;
 
-  constructor(private route: ActivatedRoute, private itemService: ItemService) {    
+  constructor(private route: ActivatedRoute, private router: Router, private itemService: ItemService) {    
     this.loaded = false;
+    this.expanded = false;
     this.item = new Item();
   }
 
+  private getItemIdFromRoute() {
+    let itemId;
+    this.route.params.forEach(param => {
+      if (param['itemId']) {
+        itemId = param['itemId'];
+      }
+    });
+
+    if (itemId) {
+      return itemId;
+    } else {
+      throw new Error('Cannot load Item. No itemId.');
+    }
+  }
+
   ngOnInit() {
+    this.expanded = (this.itemId) ? false : true;
+    this.itemId = this.itemId || this.getItemIdFromRoute();
+    
     this.itemService.get(this.itemId)
       .then((item) => {
         if (item) {
@@ -39,5 +59,9 @@ export class ItemComponent {
   create() {
     this.itemService.create(new Item('test', 'test description.', 100))
       .then(response => console.log(response));
+  }
+
+  expand() {
+    this.router.navigate(['item', this.itemId]);
   }
 }

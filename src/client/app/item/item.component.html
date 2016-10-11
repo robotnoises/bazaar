@@ -1,8 +1,8 @@
-<div>
-  <div class="bazaar-card" [ngClass]="{'loading': !loaded}">
-    <div>
-      <p>{{item.title}}</p>
-      <p>{{item.description}}</p>
+<div class="bazaar-card" [ngClass]="{'loading': !loaded, 'expanded': expanded, 'container': expanded}">
+  <div>
+    <p>{{item.title}}</p>
+    <p>{{item.description}}</p>
+    <p *ngIf="!expanded"><a (click)="expand()">View</a></p>
       <!--<h1>Item</h1>
       <p>item id is: "{{itemId}}"</p>-->
 
@@ -12,6 +12,5 @@
           <button (click)="create()">Create test</button>
         </p>
       </div>-->
-    </div>
   </div>
 </div>

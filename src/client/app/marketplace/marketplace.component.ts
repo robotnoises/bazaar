@@ -26,8 +26,4 @@ export class MarketplaceComponent {
         this.listItems = listItems;
       });
   }
-
-  itemSelect(itemId) {
-    this.router.navigate(['item', itemId]);
-  }
 }
