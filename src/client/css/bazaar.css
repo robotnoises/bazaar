@@ -90,6 +90,21 @@ a.router-link-active {
   margin: 0 auto;
 }
 
+nav > i.fa.pull-right {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 20px;
+  line-height: 48px;
+  margin-left: 20px;
+  transition: color 300ms;
+}
+
+nav > i.fa:hover,
+nav > i.fa:active,
+nav > i.fa:focus {
+  color: #ec2490;
+}
+
 .nav-secondary {
   height: 38px;
   width: 100%;
@@ -208,6 +223,12 @@ h5.centered,
 h6.centered,
 p.centered {
   text-align: center;
+}
+
+/* Helpers */
+
+.pointer {
+  cursor: pointer;
 }
 
 /* Media Queries */
