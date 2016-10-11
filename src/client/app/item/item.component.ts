@@ -48,7 +48,7 @@ export class ItemComponent {
           this.item = item as Item;
           setTimeout(() => {
             this.loaded = true;
-          }, 100);
+          }, 200);
         }
       })
       .catch((error) => {

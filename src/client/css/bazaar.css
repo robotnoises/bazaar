@@ -48,6 +48,7 @@ h6,
 p,
 a, 
 li {
+  color: #000;
   /*font-family: 'Open Sans', sans-serif;
   color: #000;
   -webkit-font-smoothing: antialiased;
@@ -58,14 +59,13 @@ li {
 
 a {
   color: #000;
-  transition: border 300ms;
-  padding: 5px 0;
-  border-bottom: 5px solid transparent;
+  transition: none;
 }
 
 a:hover,
 a.router-link-active {
-  border-color: #000;
+  /*border-color: #fff;
+  box-shadow: 5px 0 0 #fff;*/
 }
 
 /* Container */

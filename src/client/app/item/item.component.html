@@ -6,7 +6,7 @@
     <div class="bounce3"></div>
   </div>
 
-  <div>
+  <div *ngIf="loaded">
     <p>{{item.title}}</p>
     <p>{{item.description}}</p>
     <!--<p *ngIf="!expanded"><a (click)="expand()">View</a></p>-->

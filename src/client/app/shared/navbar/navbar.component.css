@@ -1,12 +1,12 @@
 :host {
   background-color: #f1c40f;
   display: block;
-  height: 90px;
+  height: 94px;
   color: #000;
 }
 
 nav {
-  padding: 0 16px;
+  padding: 3px 16px;
 }
 
 nav a {
@@ -21,13 +21,24 @@ nav a {
   padding: 0 20px;
   transform: skew(-35deg);
   text-transform: uppercase;
-  /*text-shadow: 1px 1px 0 #fff;*/
+}
+
+nav a:not(.router-link-active) {
+  padding-bottom: 2px;
+  margin-bottom: -2px;
+  border-bottom: 4px solid #f1c40f;
+}
+
+nav a:not(.router-link-active):hover,
+nav a:not(.router-link-active):focus {
+  border-bottom: 4px solid #fff;
 }
 
 nav a.router-link-active {
-  background: #000;
   color: #fff;
-  text-shadow: none;
+  background: #000;
+  box-shadow: 4px 4px 0 #fff;
+  line-height: 36px;
 }
 
 nav a span {
@@ -45,12 +56,12 @@ nav > i.fa.pull-right {
   transition: all 500ms;
 }
 
-nav > i.fa:hover,
+/*nav > i.fa:hover,
 nav > i.fa:active,
 nav > i.fa:focus {
-  /*color: #ec2490;*/
-  /*text-shadow: 2px 2px #fff;*/
-}
+  color: #ec2490;
+  text-shadow: 2px 2px #fff;
+}*/
 
 .nav-secondary {
   height: 48px;
