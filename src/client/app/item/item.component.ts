@@ -29,7 +29,8 @@ export class ItemComponent {
 
     this.form = new FormGroup({
       title: new FormControl('', [Validators.required]),
-      description: new FormControl('', [Validators.required])
+      description: new FormControl('', [Validators.required]),
+      ecv: new FormControl('', [Validators.required]),
     });
   }
 
@@ -70,11 +71,6 @@ export class ItemComponent {
 
   // Public methods
 
-  create() {
-    this.itemService.create(new Item('test', 'test description.', 100))
-      .then(response => console.log(response));
-  }
-
   expand() {
     if (this.action === 'list') {
       this.router.navigate(['item', 'view', this.itemId]);
@@ -82,6 +78,10 @@ export class ItemComponent {
   }
 
   onSubmit() {
+    let newItem = new Item(this.form.value);
+    this.itemService.create(newItem)
+      .then(response => console.log(response))
+      .catch(error => console.error(error));
     // this.loginService.login(new Login(this.form._value.email, this.form._value.password))
     //   .then((response) => {
     //     if (response && response.statusCode === 200) {
