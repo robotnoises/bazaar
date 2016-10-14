@@ -17,7 +17,7 @@ export class LoginComponent {
   form: any; 
 
   constructor(private router: Router, private loginService: LoginService) { 
-    this.form =  new FormGroup({
+    this.form = new FormGroup({
       email: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required])
     });

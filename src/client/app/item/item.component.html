@@ -1,4 +1,4 @@
-<div class="bazaar-card pointer" [ngClass]="{'loading': !loaded, 'expanded': expanded, 'container': expanded}" (click)="expand()">
+<div class="bazaar-card" [ngClass]="{'loading': !loaded, 'pointer': !expanded, 'expanded': expanded, 'container': expanded}" (click)="expand()">
   
   <div *ngIf="!loaded" class="bazaar-spinner">
     <div class="bounce1"></div>
@@ -6,8 +6,24 @@
     <div class="bounce3"></div>
   </div>
 
-  <div class="body" *ngIf="loaded">    
+  <div class="body" *ngIf="loaded && action !== 'create'">    
     <h2>{{item.title}}</h2>
     <p>{{item.description}}</p>
+  </div>
+
+  <div class="body" *ngIf="loaded && action === 'create'">    
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <p>
+        <label for="email">Title</label>
+        <input type="text" placeholder="What should we call this thing?" formControlName="title">
+      </p>
+      <p>
+        <label for="email">Description</label>
+        <textarea placeholder="Tell us a little something about it." formControlName="description"></textarea>
+      </p>
+      <p>
+        <button type="submit" class="long">ADD ITEM</button>
+      </p>
+    </form>
   </div>
 </div>

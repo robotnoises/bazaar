@@ -116,14 +116,13 @@ a.router-link-active {
   height: 280px;
   padding: 20px;
   background: #000;
-  /*border: 1px solid #f1c40f;*/
   box-shadow: 0px 0px 0px #fff;
   transition: all 200ms;
 }
 
-.bazaar-card:not(.expanded):hover,
-.bazaar-card:not(.expanded):active,
-.bazaar-card:not(.expanded):focus {
+.bazaar-card:hover,
+.bazaar-card:active,
+.bazaar-card:focus {
   box-shadow: 5px 5px 0px #f1c40f;
 }
 
@@ -138,6 +137,7 @@ a.router-link-active {
   width: 100%;
   border: none;
   background: transparent;
+  box-shadow: 0 0 0 transparent !important;
 }
 
 .promoted .bazaar-card .body {

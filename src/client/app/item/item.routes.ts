@@ -7,7 +7,11 @@ export const ItemRoutes: Route[] = [
     component: ItemComponent
   },
   { 
-    path: 'item/:itemId',
+    path: 'item/:action',
+    component: ItemComponent
+  },
+  { 
+    path: 'item/:action/:itemId',
     component: ItemComponent
   }
 ];

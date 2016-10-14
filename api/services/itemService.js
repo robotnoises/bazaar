@@ -83,7 +83,7 @@ function addPhoto(req, res) {
 
   writeStream.on('error', (error) => {
     res.status(500).json(error);
-  })
+  });
 
   readStream.pipe(writeStream);
 }

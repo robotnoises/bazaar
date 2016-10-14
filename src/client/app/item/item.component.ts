@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Item } from './index';
 import { ItemService } from './item.service';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   moduleId: module.id,
@@ -16,33 +17,41 @@ export class ItemComponent {
   loaded: boolean;
   expanded: boolean;
   item: Item;
+  itemId: string;
+  action: string; // todo model/enum
+  form: any;
 
   constructor(private route: ActivatedRoute, private router: Router, private itemService: ItemService) {    
     this.loaded = false;
     this.expanded = false;
     this.item = new Item();
+    this.action = 'list';
+
+    this.form = new FormGroup({
+      title: new FormControl('', [Validators.required]),
+      description: new FormControl('', [Validators.required])
+    });
   }
 
-  private getItemIdFromRoute() {
-    let itemId;
+  private setRouteParams() {
+    
     this.route.params.forEach(param => {
       if (param['itemId']) {
-        itemId = param['itemId'];
+        this.itemId = param['itemId'];
+      }
+      if (param['action']) {
+        this.action = param['action'];
       }
     });
 
-    if (itemId) {
-      return itemId;
-    } else {
-      throw new Error('Cannot load Item. No itemId.');
-    }
+    this.expanded = (this.action === 'view' || this.action === 'create') ? true : false;
   }
 
   ngOnInit() {
-    this.expanded = (this.itemId) ? false : true;
-    this.itemId = this.itemId || this.getItemIdFromRoute();
-    
-    this.itemService.get(this.itemId)
+    this.setRouteParams();
+
+    if (this.action === 'view' || this.action === 'list') {
+      this.itemService.get(this.itemId)
       .then((item) => {
         if (item) {
           this.item = item as Item;
@@ -54,6 +63,9 @@ export class ItemComponent {
       .catch((error) => {
         console.error(error);
       });
+    } else {
+      this.loaded = true;
+    }
   }
 
   // Public methods
@@ -64,6 +76,17 @@ export class ItemComponent {
   }
 
   expand() {
-    this.router.navigate(['item', this.itemId]);
+    if (this.action === 'list') {
+      this.router.navigate(['item', 'view', this.itemId]);
+    }
+  }
+
+  onSubmit() {
+    // this.loginService.login(new Login(this.form._value.email, this.form._value.password))
+    //   .then((response) => {
+    //     if (response && response.statusCode === 200) {
+    //       this.router.navigate(['/']); // todo pass-in redirect path
+    //     }
+    //   });
   }
 }
