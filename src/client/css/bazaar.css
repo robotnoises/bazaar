@@ -112,21 +112,57 @@ a.router-link-active {
 /* Cards */
 
 .bazaar-card {
+  position: relative;
   height: 280px;
-  padding: 10px;
-  background: #fff;
-  transition: all 500ms;
+  padding: 20px;
+  background: #000;
+  /*border: 1px solid #f1c40f;*/
+  box-shadow: 0px 0px 0px #fff;
+  transition: all 200ms;
+}
+
+.bazaar-card:not(.expanded):hover,
+.bazaar-card:not(.expanded):active,
+.bazaar-card:not(.expanded):focus {
+  box-shadow: 5px 5px 0px #f1c40f;
 }
 
 .bazaar-card.loading {
-  background: #eee;
+  background: #ddd;
+  border: none;
   color: #eee;
 }
 
 .bazaar-card.expanded {
   height: 100%;
   width: 100%;
+  border: none;
   background: transparent;
+}
+
+.promoted .bazaar-card .body {
+  position: absolute;
+  top: 40%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 20px;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0+0,0.65+100 */
+  background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%,  rgba(0,0,0,1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0, 0.65) 50%, rgba(0,0,0,1) 80%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 ); /* IE6-9 */
+  color: #fff;
+}
+
+.promoted .bazaar-card .body h2 {
+  margin: 0 0 10px;
+  padding-top: 0;
+  font-weight: 700;
+}
+
+.bazaar-card:not(.expanded) h2, p, li {
+  color: #fff;
 }
 
 /* Loading indicator */

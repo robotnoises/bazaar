@@ -1,10 +1,10 @@
 :host {
   background-color: #f1c40f;
-  /*color: rgba(255, 255, 255, 0.87);*/
   color: #000;
   display: block;
   padding: 0 16px;
   overflow: hidden;
+  border-top: 4px solid #000;
 }
 
 :host > *:not(.jumbotron) {

@@ -6,7 +6,7 @@
 }
 
 nav {
-  padding: 3px 16px;
+  padding: 3px 0;
 }
 
 nav a {
@@ -44,6 +44,7 @@ nav a.router-link-active {
 nav a span {
   display: inherit;
   transform: skew(35deg);
+  margin-left: -8px;
 }
 
 nav > i.fa.pull-right {
@@ -67,4 +68,6 @@ nav > i.fa:focus {
   height: 48px;
   width: 100%;
   background-color: #e9e9e9;
+  border-top: 4px solid #000;
+  border-bottom: 1px solid #fff;
 }

@@ -6,18 +6,8 @@
     <div class="bounce3"></div>
   </div>
 
-  <div *ngIf="loaded">
-    <p>{{item.title}}</p>
+  <div class="body" *ngIf="loaded">    
+    <h2>{{item.title}}</h2>
     <p>{{item.description}}</p>
-    <!--<p *ngIf="!expanded"><a (click)="expand()">View</a></p>-->
-      <!--<h1>Item</h1>
-      <p>item id is: "{{itemId}}"</p>-->
-
-      <!-- Temp -->
-      <!--<div>
-        <p>
-          <button (click)="create()">Create test</button>
-        </p>
-      </div>-->
   </div>
 </div>
