@@ -1,18 +1,30 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, Response } from '@angular/http';
 import { Config } from './../shared/index';
-
-import 'rxjs/add/operator/toPromise';
+import { Observable, Subject } from 'rxjs/Rx';
 
 @Injectable()
 export class MarketplaceService {
-  
-  constructor(private http: Http) { }
 
-  list(): any { // todo promise
-    return this.http.get(`${Config.API}/item`)
+  listItems: Subject<Response>;
+
+  constructor(private http: Http) { 
+    this.listItems = new Subject<Response>();
+  }
+
+  init(): Observable<Response> {
+    return this.listItems.asObservable();
+  }
+
+  list(page?: number): void {
+    let pg = page || 1;    
+    this.http.get(`${Config.API}/item?page=${pg}`)
       .toPromise()
-      .then(response => response.json())
-      .catch(error => console.log(error));
+      .then(response => {
+        this.listItems.next(response);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 }

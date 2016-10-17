@@ -60,7 +60,11 @@ function list (req, res) {
 
   listItemDAO.findAndCountAll(queryOptions)
     .then((listItems) => {
-      res.status(200).json(sortService.bazaarItems(listItems.rows.map(li => li.dataValues)));
+      let sortedRows = sortService.bazaarItems(listItems.rows.map(li => li.dataValues));
+      res.status(200).json({
+        count: listItems.count,
+        rows: sortedRows
+      });
     })
     .catch((error) => {
       res.status(500).send();

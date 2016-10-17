@@ -22,14 +22,18 @@ function insertAd(collection, lastRowItems, lastItemPromoted) {
         promoted: true,
         type: 1
       });
-    } else if (lastRowItems === 1 && lastItemPromoted) {
+    } else if (lastRowItems === 1 && !lastItemPromoted) {
       collection.push({
         promoted: true,
         type: 1
-      }); 
-    } else {
+      });
       collection.push({
         promoted: false,
+        type: 1
+      });
+    } else {
+      collection.push({
+        promoted: true,
         type: 1
       }); 
     }
