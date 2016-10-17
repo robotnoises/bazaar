@@ -49,9 +49,18 @@ function create(req, res) {
 }
 
 function list (req, res) {
-  listItemDAO.all()
+  let offset = (req.query.page) ? (parseInt(req.query.page) * 24) - 24 : 0; // todo: magic #
+  let queryOptions = {
+    limit: 24,
+    offset: offset,
+    order: [
+      ['updated_at', 'DESC']
+    ]
+  };
+
+  listItemDAO.findAndCountAll(queryOptions)
     .then((listItems) => {
-      res.status(200).json(sortService.bazaarItems(listItems.map(li => li.dataValues)));
+      res.status(200).json(sortService.bazaarItems(listItems.rows.map(li => li.dataValues)));
     })
     .catch((error) => {
       res.status(500).send();
