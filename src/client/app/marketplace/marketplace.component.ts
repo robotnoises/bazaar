@@ -31,12 +31,13 @@ export class MarketplaceComponent {
   }
 
   ngOnInit() {
+
     /**
      * Subscriptions
      */
 
     this.listItemsSub
-      .subscribe((response) => {
+      .subscribe((response: Response) => {
         let data = response.json();
         this.count = data.count;
         this.listItems = (this.listItems.length) ? this.listItems.concat(data.rows) : data.rows;
