@@ -25,7 +25,7 @@ export class MarketplaceComponent {
   constructor(private router: Router, private marketplaceService: MarketplaceService) { 
     this.listItems = [];
     this.count = 0;
-    this.scroll = true;
+    this.scroll = false;
     this.page = 1;
     this.listItemsSub = this.marketplaceService.init();
   }
