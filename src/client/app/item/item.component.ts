@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Response } from '@angular/http';
 import { Item } from './index';
 import { ItemService } from './item.service';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   moduleId: module.id,
@@ -53,7 +54,7 @@ export class ItemComponent {
 
     if (this.action === 'view' || this.action === 'list') {
       this.itemService.get(this.itemId)
-      .then((item) => {
+      .then((item: Item) => {
         if (item) {
           this.item = item as Item;
           setTimeout(() => {
@@ -61,7 +62,7 @@ export class ItemComponent {
           }, 200);
         }
       })
-      .catch((error) => {
+      .catch((error: Response) => {
         console.error(error);
       });
     } else {
@@ -80,13 +81,11 @@ export class ItemComponent {
   onSubmit() {
     let newItem = new Item(this.form.value);
     this.itemService.create(newItem)
-      .then(response => console.log(response))
-      .catch(error => console.error(error));
-    // this.loginService.login(new Login(this.form._value.email, this.form._value.password))
-    //   .then((response) => {
-    //     if (response && response.statusCode === 200) {
-    //       this.router.navigate(['/']); // todo pass-in redirect path
-    //     }
-    //   });
+      .then((response: Item) => {
+        console.log(response);
+      })
+      .catch((error: Response) => {
+        console.error(error)
+      });
   }
 }

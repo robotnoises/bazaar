@@ -44,19 +44,6 @@ const BAZAAR_LS_PREFIX = '$bazaar:';
 let subscriptions = {};
 let subscriptionsInitialized = false;
 
-// function initializeSubscriptions() {
-//   let localStorageData = window.localStorage;
-//   for (var key in localStorageData) {
-//     if (key.indexOf(BAZAAR_LS_PREFIX) === 0) {
-//       subscriptions[key] = localStorageData[key];
-//     }
-//   }
-//   subscriptionsInitialized = true;
-//   console.log(subscriptions);
-// }
-
-// initializeSubscriptions();
-
 const userKey = 'user';
 const authKey = 'auth';
 
@@ -77,7 +64,7 @@ export class StateService {
     let prefixedKey = BAZAAR_LS_PREFIX + key;
     
     // Track our observables
-    subscriptions[prefixedKey] = subscriptions[prefixedKey] || new Subject<string>();
+    (<any>subscriptions)[prefixedKey] = (<any>subscriptions)[prefixedKey] || new Subject<string>();
 
     // Check to see if there is any persisted data in localStorage for this key
     let loadedFromStorage = this.localStorageGet(key);
@@ -87,12 +74,12 @@ export class StateService {
     }
 
     // return observable
-    return subscriptions[prefixedKey].asObservable();
+    return (<any>subscriptions)[prefixedKey].asObservable();
   }
 
   private static change(key: string, value: any): void {
     let prefixedKey = BAZAAR_LS_PREFIX + key;
-    let sub$ = subscriptions[prefixedKey];
+    let sub$ = (<any>subscriptions)[prefixedKey];
 
     this.localStorageSet(key, value);
     

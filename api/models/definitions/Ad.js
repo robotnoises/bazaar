@@ -3,20 +3,33 @@
 const DataType = require('sequelize');
 
 /**
- * Category - A Bazaar Item Category
+ * Ad - A Bazaar Advertisement
  */
 
-// Define Model
+// Define Ad Model
 function define(sequelize) {
 
-  let Category = sequelize.define('category', {
-    name: { 
+  let Ad = sequelize.define('ad', {
+    title: { 
       type: DataType.STRING,
       allowNull: false
     },
     description: {
       type: DataType.TEXT,
       allowNull: false
+    },
+    link: {
+      type: DataType.STRING,
+      allowNull: false
+    },
+    impressions: {
+      type: DataType.INTEGER
+    },
+    clickthroughs: {
+      type: DataType.INTEGER
+    },
+    recurring: {
+      type: DataType.BOOLEAN
     },
     createdAt: {
       type: DataType.DATE,
@@ -28,7 +41,7 @@ function define(sequelize) {
     }
   });
 
-  return Category;
+  return Ad;
 }
 
 module.exports = {

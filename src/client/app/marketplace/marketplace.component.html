@@ -3,4 +3,8 @@
 
   <!-- List of items -->
   <bazaar-item class="bazaar-grid" *ngFor="let i of listItems" [ngClass]="{'promoted': i.promoted}" [(itemId)]="i.itemId"></bazaar-item>
+
+  <div *ngIf="scroll">
+    <a (click)="getMoreItems()">More</a>
+  </div>
 </div>

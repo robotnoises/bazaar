@@ -3,6 +3,7 @@
 const googleCloudStorage = require('@google-cloud/storage');
 const config = require('./../config')
 const response = require('./../services/httpResponseService');
+const sortService = require('./../services/sortService');
 const models = require('./../models');
 
 const itemDAO = models.getModel('Item');
@@ -10,11 +11,11 @@ const listItemDAO = models.getModel('ListItem');
 const photoDAO = models.getModel('Photo');
 
 const photoStorage = googleCloudStorage({
-    projectId: config.googleCloudProjectId,
-    credentials: {
-        private_key: config.googleCloudSecret,
-        client_email: config.googleCloudEmail
-    }
+  projectId: config.googleCloudProjectId,
+  credentials: {
+    private_key: config.googleCloudSecret,
+    client_email: config.googleCloudEmail
+  }
 });
 
 const photoBucket = photoStorage.bucket('bazaar_item_photos');
@@ -48,13 +49,26 @@ function create(req, res) {
 }
 
 function list (req, res) {
-  listItemDAO.all()
+  let offset = (req.query.page) ? (parseInt(req.query.page) * 24) - 24 : 0; // todo: magic #
+  let queryOptions = {
+    limit: 24,
+    offset: offset,
+    order: [
+      ['updated_at', 'DESC']
+    ]
+  };
+
+  listItemDAO.findAndCountAll(queryOptions)
     .then((listItems) => {
-      res.status(200).json(listItems.map(li => li.dataValues));
+      let sortedRows = sortService.bazaarItems(listItems.rows.map(li => li.dataValues));
+      res.status(200).json({
+        count: listItems.count,
+        rows: sortedRows
+      });
     })
     .catch((error) => {
       res.status(500).send();
-    })
+    });
 }
 
 function get(req, res) {
