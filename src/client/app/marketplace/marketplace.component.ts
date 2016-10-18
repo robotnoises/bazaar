@@ -41,14 +41,18 @@ export class MarketplaceComponent {
         let data = response.json();
         this.count = data.count;
         this.listItems = (this.listItems.length) ? this.listItems.concat(data.rows) : data.rows;
-        this.scroll = this.listItems ? (this.listItems.length <= this.count) : false;
+        this.scroll = this.listItems ? (this.listItems.length < this.count) : false;
       });
     
     this.marketplaceService.list(this.page);
   }
 
   ngOnDestroy() {
-    this.listItemsSub.unsubscribe();
+    // try {
+    //   this.listItemsSub.unsubscribe();
+    // } catch (ex) {
+    //   console.error(ex);
+    // }
   }
 
   // Public methods

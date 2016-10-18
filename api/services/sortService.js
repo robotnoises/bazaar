@@ -9,20 +9,35 @@ let Queue = require('./dataStructureService').Queue;
  */
 
 // Insert an ad to make sure the grid is filled properly
-function insertAd(collection, lastRowItems, lastItemPromoted) {
+function insertAd(collection, lastRowItems) {
+  if (!collection || collection.length === 0 || !lastRowItems) return;
+
+  // is the last item in the collection promoted?
+  let lastItemPromoted = collection[collection.length - 1].promoted;
+
   // Todo: fetch a real ad
-  if (lastRowItems) {
-    if (lastRowItems === 2 && lastItemPromoted) {
-      collection.push({
-        promoted: false,
-        type: 1
-      });  
-    } else if (lastRowItems === 2 && !lastItemPromoted) {
+
+  if (lastRowItems === 2) {
+    // What about the one before the last item?
+    let secondToLastItemPromoted = (collection && collection.length >= 2) ? collection[collection.length - 2].promoted : false;
+
+    if (!lastItemPromoted && !secondToLastItemPromoted) {
+      // The first two items in the row are not promoted (fill two spaces)
       collection.push({
         promoted: true,
         type: 1
       });
-    } else if (lastRowItems === 1 && !lastItemPromoted) {
+    } else {
+      // Then, one of them has to be promoted (fill one space) 
+      collection.push({
+        promoted: false,
+        type: 1
+      });
+    }
+  } else {
+    // lastRowItems === 1
+    if (!lastItemPromoted) {
+      // The only item in this row is not promoted, so you need to fill two spaces
       collection.push({
         promoted: true,
         type: 1
@@ -32,10 +47,11 @@ function insertAd(collection, lastRowItems, lastItemPromoted) {
         type: 1
       });
     } else {
+      // Just fill one space
       collection.push({
         promoted: true,
         type: 1
-      }); 
+      });
     }
   }
 }
@@ -80,22 +96,22 @@ function bazaarItems(collection) {
 
   // By observing the above pattern, there should be 3 "cards" per line,
   // if there is space remaining to fill, fill it with ads
-  let lastSortedRowItems = (sorted.length % 3);
-  let lastSortedItemPromoted = _.last(sorted).promoted;
-
-  insertAd(sorted, lastSortedRowItems, lastSortedItemPromoted);
+  if (sorted && sorted.length) {
+    let lastSortedRowItems = (sorted.length % 3);
+    insertAd(sorted, lastSortedRowItems);
+  }
   
   // Much like we used ads above in the sorted list, let's ad- fill the remaining items in 
   // a similar manner
-  let modulus = remainingPromoted ? 2: 3;
-  let lastRemainingRowItems = (remaining.length % modulus);
-  let lastRemainingItemPromoted = _.last(remaining).promoted;
 
-  insertAd(remaining, lastRemainingRowItems, lastRemainingItemPromoted);
+  if (remaining && remaining.length) {
+    let modulus = remainingPromoted ? 2: 3;
+    let lastRemainingRowItems = (remaining.length % modulus);
+    insertAd(remaining, lastRemainingRowItems);
+  }
 
-  let done = sorted.concat(remaining);
-
-  return done;
+  // Done!
+  return sorted.concat(remaining);
 }
 
 module.exports = {

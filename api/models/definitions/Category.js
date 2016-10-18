@@ -6,7 +6,7 @@ const DataType = require('sequelize');
  * Category - A Bazaar Item Category
  */
 
-// Define Item Model
+// Define Model
 function define(sequelize) {
 
   let Category = sequelize.define('category', {
