@@ -14,6 +14,7 @@ var Photo = require('./definitions/Photo');
 var Category = require('./definitions/Category');
 var Condition = require('./definitions/Condition');
 var ShippingAddress = require('./definitions/ShippingAddress');
+var Ad = require('./definitions/Ad');
 
 // Map of defined models (defined in init())
 var definedModels = {};
@@ -33,6 +34,7 @@ function init(sequelize) {
   let category = Category.define(sequelize);
   let condition = Condition.define(sequelize);
   let shippingAddress = ShippingAddress.define(sequelize);
+  let ad = Ad.define(sequelize);
 
   // Add to definedModels hashMap
   // Node: each key needs to be lower case
@@ -44,6 +46,7 @@ function init(sequelize) {
   definedModels.category = category;
   definedModels.condition = condition;
   definedModels.shippingaddress = shippingAddress;
+  definedModels.ad = ad;
 
   /**
    * Define various Model associations using the above definitions
@@ -98,6 +101,10 @@ function init(sequelize) {
    * Synchronize Models to Database 
    */
 
+  if (!config.dropDatabase || !config.local) {
+    return Promise.resolve();
+  } 
+
   // Forced-sync (DROP IF EXIST) when in debug mode + dropDatabase === true
   return sequelize.sync({ force: (config.dropDatabase && config.local) })
     // Create Item Conditions
@@ -111,6 +118,26 @@ function init(sequelize) {
     .then(() => role.create({ value: 'user' }))
     .then(() => role.create({ value: 'admin' }))
     .then(() => role.create({ value: 'superadmin' }))
+
+    // Create a few dummy-ads
+    
+    .then(() => ad.create({
+      title: 'Tired of being fat?',
+      description: 'Me too! Click here if you\'re tired and don\'t wanna do anything about it!',
+      link: 'https://developer.mozilla.org/',
+      impressions: 5,
+      clickthroughs: 0,
+      recurring: false
+    }))
+
+    .then(() => ad.create({
+      title: 'Advertise with us!',
+      description: 'Place your ad with Bazaar!',
+      link: '/ads/buy',
+      impressions: null,
+      clickthroughs: 0,
+      recurring: true
+    }))
     
     // Create Item Categories
     .then(() => {
